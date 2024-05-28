@@ -7,12 +7,15 @@ module.exports = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      colors: {
+        background: '#000000', // Set to black
+        text: '#ffffff' // Ensure text is white
       },
+      fontFamily: {
+        dosis: ['dosis', 'sans-serif'] // Add Roboto to the font family
+      }
     },
   },
+  darkMode: 'class', // or 'media' for automatic switching based on user's system settings
   plugins: [],
 };
