@@ -13,6 +13,7 @@ module.exports = {
       },
       fontFamily: {
         dosis: ['dosis', 'sans-serif'] // Add Roboto to the font family
+        
       }
     },
   },
