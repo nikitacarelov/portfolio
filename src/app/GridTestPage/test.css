@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&display=swap');
+
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Dosis', sans-serif; /* Apply the font globally */
+}
+
+main {
+  min-height: 100vh; /* Ensure main covers the full viewport height */
+}
+
+.main-container {
+  position: absolute;
+  width: 100%; /* Ensure it covers the full width */
+  height: 100%; /* Ensure it covers the full height */
+  overflow: hidden;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.background-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #f06, #4a90e2);
+  z-index: 0;
+}
+
+.text-lg {
+  z-index: 2; /* Ensure text is above the background */
+  color: black; /* Set text color to black */
+  text-align: center; /* Center the text */
+}

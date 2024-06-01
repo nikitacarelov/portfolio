@@ -12,7 +12,7 @@ module.exports = {
         text: '#ffffff' // Ensure text is white
       },
       fontFamily: {
-        dosis: ['dosis', 'sans-serif'] // Add Roboto to the font family
+        dosis: ['dosis', 'sans-serif']
         
       }
     },

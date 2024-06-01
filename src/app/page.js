@@ -1,6 +1,10 @@
 'use client';
+import React from 'react';
 
 import { useState, useRef, useEffect } from 'react';
+import './globals.css';
+import Grid from './components/Grid'; // Ensure the path is correct
+
 
 export default function Home() {
   const [animate, setAnimateName] = useState(false);
@@ -43,7 +47,9 @@ export default function Home() {
   }, [showHome, showAbout, showButtons, showContact]);
 
   return (
+    
     <main className="min-h-screen bg-background flex flex-col items-center justify-center font-serif transition-all duration-700">
+      <div className="background-layer"></div>
       <header className="w-full py-5 text-white flex justify-between items-center px-10 bg-black">
         <div className="ml-auto absolute top-0 right-0 mr-10 mt-5 font-dosis">
           <button
@@ -97,13 +103,15 @@ export default function Home() {
           </button>
         </div>
       </header>
-
-      <div className={`absolute center p-10 shadow-lg max-w-screen-lg mx-auto text-center transition-all duration-700 ease-in-out ${animate ? '-translate-y-20 opacity-20' : 'translate-y-0 opacity-100'}`}>
+      
+      <div className={`absolute center p-10 shadow-lg max-w-screen-lg mx-auto text-center transition-all duration-700 ease-in-out ${animate ? '-translate-y-20' : 'translate-y-0'}`}>
         <div className="flex flex-col gap-0 items-center font-dosis">
-          <h1 className={`text-8xl font-thin text-text tracking-wide transition-all`}>
+          <h1 className={`text-8xl font-thin text-text tracking-wide transition-opacity duration-700 ease-in-out ${animate ? 'opacity-20' : 'opacity-100'}`}>
             Nikita Carelov
           </h1>
-          <p className="text-2xl text-text opacity-50 font-thin italic">Mechanical Engineer | 3D Artist | Developer</p>
+          <p className={`text-2xl text-text font-thin italic transition-opacity duration-700 ${animate ? 'opacity-5' : 'opacity-50'}`}>
+            Mechanical Engineer | 3D Artist | Developer
+          </p>
         </div>
       </div>
 
@@ -152,3 +160,5 @@ export default function Home() {
     </main>
   );
 }
+// TODO: write content for all the sections. Make the text wrap dynamically so it runs on the phone well.
+
