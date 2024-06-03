@@ -61,7 +61,7 @@ const Grid = () => {
       });
 
       // Create instances of alphaMapMesh that orbit around the center
-      for (let i = 0; i < 5; i++) {
+      for (let i = 0; i < 10; i++) {
         const orbitingMesh = new THREE.Mesh(geometry, material.clone());
         orbitingMesh.geometry.computeBoundingBox();
         orbitingMesh.layers.set(1);
