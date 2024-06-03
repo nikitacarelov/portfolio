@@ -1,19 +1,18 @@
 "use client";
+import React, { useEffect } from 'react';
+import { createNoise2D } from 'simplex-noise';
 
-import React from 'react';
-import './test.css';
-import Grid from '../components/Grid'; // Ensure the import is correct
 
-export default function Page() {
-  return (
-    <main className="min-h-screen flex flex-col items-center justify-center font-sans-serif transition-all duration-700">
-      <div className="background-layer"></div>
-      <div className="main-container">
-      <Grid />
-        <h1 className="text-8xl font-medium text-black tracking-wide">
-          Hello world
-        </h1>
-      </div>
-    </main>
-  );
-}
+const NoiseTest = () => {
+  useEffect(() => {
+    const noise2D = createNoise2D();
+    const noiseValue = noise2D(0, 1);
+
+
+    console.log('Simplex noise value at (0, 0):', noiseValue);
+  }, []);
+
+  return <div>Check the console for simplex noise value</div>;
+};
+
+export default NoiseTest;

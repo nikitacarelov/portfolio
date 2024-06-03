@@ -48,9 +48,8 @@ export default function Home() {
 
   return (
     
-    <main className="min-h-screen bg-background flex flex-col items-center justify-center font-serif transition-all duration-700">
-      <div className="background-layer"></div>
-      <header className="w-full py-5 text-white flex justify-between items-center px-10 bg-black">
+    <main className="min-h-screen bg-transparent flex flex-col items-center justify-center font-serif transition-all duration-700">
+      <header className="w-full py-5 text-white flex justify-between items-center px-10" style={{ backgroundColor: 'transparent' }}>
         <div className="ml-auto absolute top-0 right-0 mr-10 mt-5 font-dosis">
           <button
             className="text-white hover:text-gray-800 font-bold py-2 px-4 transition-colors duration-300"
@@ -103,27 +102,26 @@ export default function Home() {
           </button>
         </div>
       </header>
-      
+      <Grid />
       <div className={`absolute center p-10 shadow-lg max-w-screen-lg mx-auto text-center transition-all duration-700 ease-in-out ${animate ? '-translate-y-20' : 'translate-y-0'}`}>
         <div className="flex flex-col gap-0 items-center font-dosis">
-          <h1 className={`text-8xl font-thin text-text tracking-wide transition-opacity duration-700 ease-in-out ${animate ? 'opacity-20' : 'opacity-100'}`}>
+          <h1 className={`text-8xl font-thin text-text tracking-wide transition-opacity duration-[2000ms] ease-in-out ${animate ? 'opacity-20' : 'opacity-100'}`}>
             Nikita Carelov
           </h1>
-          <p className={`text-2xl text-text font-thin italic transition-opacity duration-700 ${animate ? 'opacity-5' : 'opacity-50'}`}>
+          <p className={`text-2xl text-text font-thin italic transition-opacity duration-[2000ms] ${animate ? 'opacity-5' : 'opacity-50'}`}>
             Mechanical Engineer | 3D Artist | Developer
           </p>
         </div>
       </div>
-
       {/* Conditionally Render Scrollable Row */}
       <div className={`relative w-full overflow-hidden transition-all duration-700 ${showHome ? 'h-0 opacity-0' : 'h-auto opacity-100'}`}>
         {!showHome && (
-          <div ref={scrollContainerRef} className="overflow-x-auto whitespace-nowrap flex transition-opacity duration-1000 mt-20 no-scrollbar px-20">
+          <div ref={scrollContainerRef} className="overflow-x-auto whitespace-nowrap flex transition-opacity duration-[2000ms] mt-20 no-scrollbar px-20">
             <div ref={homeRef} className="inline-block w-full flex-shrink-0">
               {/* Whitespace Section for Home */}
             </div>
             <div ref={portfolioRef} className="inline-block w-full flex-shrink-0">
-              <div className={`flex justify-center ${showButtons ? 'opacity-100' : 'opacity-0'} transition-opacity duration-1000 mx-4`}>
+              <div className={`flex justify-center ${showButtons ? 'opacity-100' : 'opacity-0'} transition-opacity duration-[2000ms] mx-4`}>
                 <button className="text-white hover:text-gray-800 font-bold py-4 px-8 text-lg transition-colors duration-300">
                   Robotics
                 </button>
@@ -139,7 +137,7 @@ export default function Home() {
               </div>
             </div>
             <div ref={aboutRef} className="inline-block w-full flex-shrink-0">
-              <div className={`flex justify-center ${showAbout ? 'opacity-100' : 'opacity-0'} transition-opacity duration-1000 mx-4`}>
+              <div className={`flex justify-center ${showAbout ? 'opacity-100' : 'opacity-0'} transition-opacity duration-[2000ms] mx-4`}>
                 <p className="text-lg text-text font-medium whitespace-pre-line">
                   I am a Mechanical Engineer with a passion for 3D Art and Software Development...<br />
                   Here is another line.<br />
@@ -148,7 +146,7 @@ export default function Home() {
               </div>
             </div>
             <div ref={contactRef} className="inline-block w-full flex-shrink-0">
-              <div className={`flex justify-center ${showContact ? 'opacity-100' : 'opacity-0'} transition-opacity duration-1000 mx-4`}>
+              <div className={`flex justify-center ${showContact ? 'opacity-100' : 'opacity-0'} transition-opacity duration-[2000ms] mx-4`}>
                 <p className="text-lg text-text font-medium">
                   Feel free to reach out to me via email at contact@example.com.
                 </p>
@@ -161,4 +159,3 @@ export default function Home() {
   );
 }
 // TODO: write content for all the sections. Make the text wrap dynamically so it runs on the phone well.
-
