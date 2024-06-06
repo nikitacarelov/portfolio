@@ -1,10 +1,7 @@
 'use client';
-import React from 'react';
-
-import { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './globals.css';
 import Grid from './components/Grid'; // Ensure the path is correct
-
 
 export default function Home() {
   const [animate, setAnimateName] = useState(false);
@@ -46,9 +43,36 @@ export default function Home() {
     }
   }, [showHome, showAbout, showButtons, showContact]);
 
+  const toggleState = () => {
+    if (showHome) {
+      setShowHome(false);
+      setShowAbout(true);
+      setShowPortfolioButtons(false);
+      setShowContact(false);
+      setAnimateName(true);
+    } else if (showAbout) {
+      setShowHome(false);
+      setShowAbout(false);
+      setShowPortfolioButtons(true);
+      setShowContact(false);
+      setAnimateName(true);
+    } else if (showButtons) {
+      setShowHome(false);
+      setShowAbout(false);
+      setShowPortfolioButtons(false);
+      setShowContact(true);
+      setAnimateName(true);
+    } else if (showContact) {
+      setShowHome(true);
+      setShowAbout(false);
+      setShowPortfolioButtons(false);
+      setShowContact(false);
+      setAnimateName(false);
+    }
+  };
+
   return (
-    
-    <main className="min-h-screen bg-transparent flex flex-col items-center justify-center font-serif transition-all duration-700">
+    <main className="min-h-screen bg-transparent flex flex-col items-center justify-center font-serif transition-all duration-1000 ease-in-out">
       <header className="w-full py-5 text-white flex justify-between items-center px-10" style={{ backgroundColor: 'transparent' }}>
         <div className="ml-auto absolute top-0 right-0 mr-10 mt-5 font-dosis">
           <button
@@ -103,59 +127,64 @@ export default function Home() {
         </div>
       </header>
       <Grid />
-      <div className={`absolute center p-10 shadow-lg max-w-screen-lg mx-auto text-center transition-all duration-700 ease-in-out ${animate ? '-translate-y-20' : 'translate-y-0'}`}>
+      <button
+        className={`absolute center shadow-lg max-w-screen-lg mx-auto text-center transition-all duration-1000 ease-in-out ${animate ? '-translate-y-20' : 'translate-y-0'}`}
+        onClick={toggleState}
+        style={{ cursor: 'pointer', background: 'transparent', border: 'none', zIndex: '1000', padding: '20px', width: '500px', height: '150px' }}
+      >
+      </button>
+
+      <div
+        className={`absolute center p-10 shadow-lg max-w-screen-lg mx-auto text-center transition-all duration-1000 ease-in-out ${animate ? '-translate-y-20' : 'translate-y-0'}`}>
         <div className="flex flex-col gap-0 items-center font-dosis">
-          <h1 className={`text-8xl font-thin text-text tracking-wide transition-opacity duration-[2000ms] ease-in-out ${animate ? 'opacity-20' : 'opacity-100'}`}>
+          <h1 className={`text-8xl font-thin text-text tracking-wide transition-opacity duration-[1000ms] ease-in-out ${animate ? 'opacity-20' : 'opacity-100'}`}>
             Nikita Carelov
           </h1>
-          <p className={`text-2xl text-text font-thin italic transition-opacity duration-[2000ms] ${animate ? 'opacity-5' : 'opacity-50'}`}>
+          <p className={`text-2xl text-text font-thin italic transition-opacity duration-[3000ms] ${animate ? 'opacity-5' : 'opacity-50'}`}>
             Mechanical Engineer | 3D Artist | Developer
           </p>
         </div>
       </div>
-      {/* Conditionally Render Scrollable Row */}
-      <div className={`relative w-full overflow-hidden transition-all duration-700 ${showHome ? 'h-0 opacity-0' : 'h-auto opacity-100'}`}>
-        {!showHome && (
-          <div ref={scrollContainerRef} className="overflow-x-auto whitespace-nowrap flex transition-opacity duration-[2000ms] mt-20 no-scrollbar px-20">
-            <div ref={homeRef} className="inline-block w-full flex-shrink-0">
-              {/* Whitespace Section for Home */}
-            </div>
-            <div ref={portfolioRef} className="inline-block w-full flex-shrink-0">
-              <div className={`flex justify-center ${showButtons ? 'opacity-100' : 'opacity-0'} transition-opacity duration-[2000ms] mx-4`}>
-                <button className="text-white hover:text-gray-800 font-bold py-4 px-8 text-lg transition-colors duration-300">
-                  Robotics
-                </button>
-                <button className="text-white hover:text-gray-800 font-bold py-4 px-8 text-lg transition-colors duration-300">
-                  Software
-                </button>
-                <button className="text-white hover:text-gray-800 font-bold py-4 px-8 text-lg transition-colors duration-300">
-                  3D Art
-                </button>
-                <button className="text-white hover:text-gray-800 font-bold py-4 px-8 text-lg transition-colors duration-300">
-                  AI
-                </button>
-              </div>
-            </div>
-            <div ref={aboutRef} className="inline-block w-full flex-shrink-0">
-              <div className={`flex justify-center ${showAbout ? 'opacity-100' : 'opacity-0'} transition-opacity duration-[2000ms] mx-4`}>
-                <p className="text-lg text-text font-medium whitespace-pre-line">
-                  I am a Mechanical Engineer with a passion for 3D Art and Software Development...<br />
-                  Here is another line.<br />
-                  And another line.
-                </p>
-              </div>
-            </div>
-            <div ref={contactRef} className="inline-block w-full flex-shrink-0">
-              <div className={`flex justify-center ${showContact ? 'opacity-100' : 'opacity-0'} transition-opacity duration-[2000ms] mx-4`}>
-                <p className="text-lg text-text font-medium">
-                  Feel free to reach out to me via email at contact@example.com.
-                </p>
-              </div>
+      {/* Always Render Scrollable Row */}
+      <div className={`relative w-full overflow-hidden transition-all duration-1000 ${showHome ? ' opacity-0' : ' opacity-100'}`}>
+        <div ref={scrollContainerRef} className="overflow-x-auto whitespace-nowrap flex transition-all duration-[1000ms] mt-20 no-scrollbar px-20">
+          <div ref={homeRef} className="inline-block w-full flex-shrink-0">
+            {/* Whitespace Section for Home */}
+          </div>
+          <div ref={aboutRef} className="inline-block w-full flex-shrink-0">
+            <div className={`flex justify-center ${showAbout ? 'opacity-100' : 'opacity-0'} transition-opacity duration-[1000ms] mx-4`}>
+              <p className="text-lg text-text font-medium whitespace-pre-line">
+                I am a Mechanical Engineer with a passion for 3D Art and Software Development...<br />
+                Here is another line.<br />
+                And another line.
+              </p>
             </div>
           </div>
-        )}
+          <div ref={portfolioRef} className="inline-block w-full flex-shrink-0">
+            <div className={`flex justify-center ${showButtons ? 'opacity-100' : 'opacity-0'} transition-opacity duration-[1000ms] mx-4`}>
+              <button className="text-white hover:text-gray-800 font-bold py-4 px-8 text-lg transition-colors duration-300">
+                Robotics
+              </button>
+              <button className="text-white hover:text-gray-800 font-bold py-4 px-8 text-lg transition-colors duration-300">
+                Software
+              </button>
+              <button className="text-white hover:text-gray-800 font-bold py-4 px-8 text-lg transition-colors duration-300">
+                3D Art
+              </button>
+              <button className="text-white hover:text-gray-800 font-bold py-4 px-8 text-lg transition-colors duration-300">
+                AI
+              </button>
+            </div>
+          </div>
+          <div ref={contactRef} className="inline-block w-full flex-shrink-0">
+            <div className={`flex justify-center ${showContact ? 'opacity-100' : 'opacity-0'} transition-opacity duration-[1000ms] mx-4`}>
+              <p className="text-lg text-text font-medium">
+                Feel free to reach out to me via email at contact@example.com.
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </main>
   );
 }
-// TODO: write content for all the sections. Make the text wrap dynamically so it runs on the phone well.
