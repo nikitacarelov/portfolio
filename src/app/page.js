@@ -7,6 +7,7 @@ export default function Home() {
   const [animate, setAnimateName] = useState(false);
   const [currentState, setCurrentState] = useState('home');
   const [lastScrollTime, setLastScrollTime] = useState(0);
+  const [isHovered, setIsHovered] = useState(false); // New state for hover
 
   // Refs for scrolling
   const scrollContainerRef = useRef(null);
@@ -81,7 +82,7 @@ export default function Home() {
       <header className="w-full py-5 text-white flex justify-between items-center px-10" style={{ backgroundColor: 'transparent' }}>
         <div className="ml-auto absolute top-0 right-0 mr-10 mt-5 font-dosis">
           <button
-            className="text-white hover:text-gray-800 font-bold py-2 px-4 transition-colors duration-300"
+            className={`text-white hover:text-gray-500 font-bold py-2 px-4 transition-colors duration-300 ${currentState === 'home' ? 'text-gray-400' : ''}`}
             onClick={() => {
               setCurrentState('home');
               setAnimateName(false);
@@ -91,7 +92,7 @@ export default function Home() {
           </button>
 
           <button
-            className="text-white hover:text-gray-800 font-bold py-2 px-4 transition-colors duration-300"
+            className={`text-white hover:text-gray-500 font-bold py-2 px-4 transition-colors duration-300 ${currentState === 'about' ? 'text-gray-400' : ''}`}
             onClick={() => {
               setCurrentState('about');
               setAnimateName(true);
@@ -100,7 +101,7 @@ export default function Home() {
             About
           </button>
           <button
-            className="text-white hover:text-gray-800 py-2 px-4 font-bold ml-2 transition-colors duration-300"
+            className={`text-white hover:text-gray-500 font-bold py-2 px-4 transition-colors duration-300 ${currentState === 'portfolio' ? 'text-gray-400' : ''}`}
             onClick={() => {
               setCurrentState('portfolio');
               setAnimateName(true);
@@ -109,7 +110,7 @@ export default function Home() {
             Portfolio
           </button>
           <button
-            className="text-white hover:text-gray-800 py-2 px-4 font-bold ml-2 transition-colors duration-300"
+            className={`text-white hover:text-gray-500 font-bold py-2 px-4 transition-colors duration-300 ${currentState === 'contact' ? 'text-gray-400' : ''}`}
             onClick={() => {
               setCurrentState('contact');
               setAnimateName(true);
@@ -123,6 +124,8 @@ export default function Home() {
       <button
         className={`absolute center shadow-lg max-w-screen-lg mx-auto text-center transition-all duration-1000 ease-in-out ${animate ? '-translate-y-20' : 'translate-y-0'}`}
         onClick={() => toggleState('down')}
+        onMouseEnter={() => setIsHovered(true)} // Set hover state on mouse enter
+        onMouseLeave={() => setIsHovered(false)} // Reset hover state on mouse leave
         style={{ cursor: 'pointer', background: 'transparent', border: 'none', zIndex: '1000', padding: '20px', width: '500px', height: '150px' }}
       >
       </button>
@@ -130,10 +133,10 @@ export default function Home() {
       <div
         className={`absolute center p-10 shadow-lg max-w-screen-lg mx-auto text-center transition-all duration-1000 ease-in-out ${animate ? '-translate-y-20' : 'translate-y-0'}`}>
         <div className="flex flex-col gap-0 items-center font-dosis">
-          <h1 className={`text-8xl font-thin text-text tracking-wide transition-opacity duration-[1000ms] ease-in-out ${animate ? 'opacity-20' : 'opacity-100'}`}>
+          <h1 className={`text-8xl font-thin text-text tracking-wide transition-all duration-[1000ms] ease-in-out ${animate ? 'text-gray-500' : ' '} ${isHovered ? 'text-gray-500' : ''}`}>
             Nikita Carelov
           </h1>
-          <p className={`text-2xl text-text font-thin italic transition-opacity duration-[3000ms] ${animate ? 'opacity-5' : 'opacity-50'}`}>
+          <p className={`text-2xl text-text font-thin italic transition-opacity duration-[1500ms] ${animate ? 'opacity-5' : 'opacity-50'}`}>
             Mechanical Engineer | 3D Artist | Developer
           </p>
         </div>
@@ -142,7 +145,7 @@ export default function Home() {
       <div className={`relative w-full overflow-hidden transition-all duration-1000 ${currentState === 'home' ? ' opacity-0' : ' opacity-100'}`}>
         <div ref={scrollContainerRef} className="overflow-x-auto whitespace-nowrap flex transition-all duration-[1000ms] mt-20 no-scrollbar px-20">
           <div ref={homeRef} className="inline-block w-full flex-shrink-0">
-            {/* Whitespace Section for Home */}
+            {/* Home content */}
           </div>
           <div ref={aboutRef} className="inline-block w-full flex-shrink-0">
             <div className={`flex justify-center ${currentState === 'about' ? 'opacity-100' : 'opacity-0'} transition-opacity duration-[1000ms] mx-4`}>
