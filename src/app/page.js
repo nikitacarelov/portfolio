@@ -5,10 +5,8 @@ import Grid from './components/Grid'; // Ensure the path is correct
 
 export default function Home() {
   const [animate, setAnimateName] = useState(false);
-  const [showButtons, setShowPortfolioButtons] = useState(false);
-  const [showAbout, setShowAbout] = useState(false);
-  const [showContact, setShowContact] = useState(false);
-  const [showHome, setShowHome] = useState(true);
+  const [currentState, setCurrentState] = useState('home');
+  const [lastScrollTime, setLastScrollTime] = useState(0);
 
   // Refs for scrolling
   const scrollContainerRef = useRef(null);
@@ -32,44 +30,51 @@ export default function Home() {
   };
 
   useEffect(() => {
-    if (!showHome) {
-      if (showAbout) {
+    if (currentState !== 'home') {
+      if (currentState === 'about') {
         scrollToSection(aboutRef);
-      } else if (showButtons) {
+      } else if (currentState === 'portfolio') {
         scrollToSection(portfolioRef);
-      } else if (showContact) {
+      } else if (currentState === 'contact') {
         scrollToSection(contactRef);
       }
     }
-  }, [showHome, showAbout, showButtons, showContact]);
+  }, [currentState]);
 
-  const toggleState = () => {
-    if (showHome) {
-      setShowHome(false);
-      setShowAbout(true);
-      setShowPortfolioButtons(false);
-      setShowContact(false);
-      setAnimateName(true);
-    } else if (showAbout) {
-      setShowHome(false);
-      setShowAbout(false);
-      setShowPortfolioButtons(true);
-      setShowContact(false);
-      setAnimateName(true);
-    } else if (showButtons) {
-      setShowHome(false);
-      setShowAbout(false);
-      setShowPortfolioButtons(false);
-      setShowContact(true);
-      setAnimateName(true);
-    } else if (showContact) {
-      setShowHome(true);
-      setShowAbout(false);
-      setShowPortfolioButtons(false);
-      setShowContact(false);
-      setAnimateName(false);
+  const toggleState = (direction) => {
+    const states = ['home', 'about', 'portfolio', 'contact'];
+    const currentIndex = states.indexOf(currentState);
+    let newIndex;
+
+    if (direction === 'down') {
+      newIndex = (currentIndex + 1) % states.length;
+    } else if (direction === 'up') {
+      newIndex = (currentIndex - 1 + states.length) % states.length;
     }
+
+    setCurrentState(states[newIndex]);
+    setAnimateName(states[newIndex] !== 'home');
   };
+
+  useEffect(() => {
+    const handleWheel = (event) => {
+      const now = Date.now();
+      if (now - lastScrollTime < 500) return; // throttle to avoid rapid toggling
+      setLastScrollTime(now);
+
+      if (event.deltaY > 0) {
+        toggleState('down');
+      } else if (event.deltaY < 0) {
+        toggleState('up');
+      }
+    };
+
+    window.addEventListener('wheel', handleWheel);
+
+    return () => {
+      window.removeEventListener('wheel', handleWheel);
+    };
+  }, [lastScrollTime]);
 
   return (
     <main className="min-h-screen bg-transparent flex flex-col items-center justify-center font-serif transition-all duration-1000 ease-in-out">
@@ -78,10 +83,7 @@ export default function Home() {
           <button
             className="text-white hover:text-gray-800 font-bold py-2 px-4 transition-colors duration-300"
             onClick={() => {
-              setShowHome(true);
-              setShowPortfolioButtons(false);
-              setShowAbout(false);
-              setShowContact(false);
+              setCurrentState('home');
               setAnimateName(false);
             }}
           >
@@ -91,10 +93,7 @@ export default function Home() {
           <button
             className="text-white hover:text-gray-800 font-bold py-2 px-4 transition-colors duration-300"
             onClick={() => {
-              setShowHome(false);
-              setShowPortfolioButtons(false);
-              setShowAbout(true);
-              setShowContact(false);
+              setCurrentState('about');
               setAnimateName(true);
             }}
           >
@@ -103,11 +102,8 @@ export default function Home() {
           <button
             className="text-white hover:text-gray-800 py-2 px-4 font-bold ml-2 transition-colors duration-300"
             onClick={() => {
-              setShowHome(false);
-              setShowAbout(false);
+              setCurrentState('portfolio');
               setAnimateName(true);
-              setShowPortfolioButtons(true);
-              setShowContact(false);
             }}
           >
             Portfolio
@@ -115,11 +111,8 @@ export default function Home() {
           <button
             className="text-white hover:text-gray-800 py-2 px-4 font-bold ml-2 transition-colors duration-300"
             onClick={() => {
-              setShowHome(false);
-              setShowAbout(false);
+              setCurrentState('contact');
               setAnimateName(true);
-              setShowPortfolioButtons(false);
-              setShowContact(true);
             }}
           >
             Contact
@@ -129,7 +122,7 @@ export default function Home() {
       <Grid />
       <button
         className={`absolute center shadow-lg max-w-screen-lg mx-auto text-center transition-all duration-1000 ease-in-out ${animate ? '-translate-y-20' : 'translate-y-0'}`}
-        onClick={toggleState}
+        onClick={() => toggleState('down')}
         style={{ cursor: 'pointer', background: 'transparent', border: 'none', zIndex: '1000', padding: '20px', width: '500px', height: '150px' }}
       >
       </button>
@@ -146,13 +139,13 @@ export default function Home() {
         </div>
       </div>
       {/* Always Render Scrollable Row */}
-      <div className={`relative w-full overflow-hidden transition-all duration-1000 ${showHome ? ' opacity-0' : ' opacity-100'}`}>
+      <div className={`relative w-full overflow-hidden transition-all duration-1000 ${currentState === 'home' ? ' opacity-0' : ' opacity-100'}`}>
         <div ref={scrollContainerRef} className="overflow-x-auto whitespace-nowrap flex transition-all duration-[1000ms] mt-20 no-scrollbar px-20">
           <div ref={homeRef} className="inline-block w-full flex-shrink-0">
             {/* Whitespace Section for Home */}
           </div>
           <div ref={aboutRef} className="inline-block w-full flex-shrink-0">
-            <div className={`flex justify-center ${showAbout ? 'opacity-100' : 'opacity-0'} transition-opacity duration-[1000ms] mx-4`}>
+            <div className={`flex justify-center ${currentState === 'about' ? 'opacity-100' : 'opacity-0'} transition-opacity duration-[1000ms] mx-4`}>
               <p className="text-lg text-text font-medium whitespace-pre-line">
                 I am a Mechanical Engineer with a passion for 3D Art and Software Development...<br />
                 Here is another line.<br />
@@ -161,7 +154,7 @@ export default function Home() {
             </div>
           </div>
           <div ref={portfolioRef} className="inline-block w-full flex-shrink-0">
-            <div className={`flex justify-center ${showButtons ? 'opacity-100' : 'opacity-0'} transition-opacity duration-[1000ms] mx-4`}>
+            <div className={`flex justify-center ${currentState === 'portfolio' ? 'opacity-100' : 'opacity-0'} transition-opacity duration-[1000ms] mx-4`}>
               <button className="text-white hover:text-gray-800 font-bold py-4 px-8 text-lg transition-colors duration-300">
                 Robotics
               </button>
@@ -177,7 +170,7 @@ export default function Home() {
             </div>
           </div>
           <div ref={contactRef} className="inline-block w-full flex-shrink-0">
-            <div className={`flex justify-center ${showContact ? 'opacity-100' : 'opacity-0'} transition-opacity duration-[1000ms] mx-4`}>
+            <div className={`flex justify-center ${currentState === 'contact' ? 'opacity-100' : 'opacity-0'} transition-opacity duration-[1000ms] mx-4`}>
               <p className="text-lg text-text font-medium">
                 Feel free to reach out to me via email at contact@example.com.
               </p>
