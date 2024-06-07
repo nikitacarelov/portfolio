@@ -82,7 +82,7 @@ export default function Home() {
       <header className="w-full py-5 text-white flex justify-between items-center px-10" style={{ backgroundColor: 'transparent' }}>
         <div className="ml-auto absolute top-0 right-0 mr-10 mt-5 font-dosis">
           <button
-            className={`text-white hover:text-gray-500 font-bold py-2 px-4 transition-colors duration-300 ${currentState === 'home' ? 'opacity-70' : ' '}`}
+            className={`text-white hover:opacity-50 font-bold py-2 px-4 transition-all duration-300 ${currentState === 'home' ? 'opacity-60' : ' '}`}
             onClick={() => {
               setCurrentState('home');
               setAnimateName(false);
@@ -92,7 +92,7 @@ export default function Home() {
           </button>
 
           <button
-            className={`text-white hover:text-gray-500 font-bold py-2 px-4 transition-colors duration-300 ${currentState === 'about' ? 'opacity-70' : ' '}`}
+            className={`text-white hover:opacity-50 font-bold py-2 px-4 transition-all duration-300 ${currentState === 'about' ? 'opacity-60' : ' '}`}
             onClick={() => {
               setCurrentState('about');
               setAnimateName(true);
@@ -101,7 +101,7 @@ export default function Home() {
             About
           </button>
           <button
-            className={`text-white hover:text-gray-500 font-bold py-2 px-4 transition-colors duration-300 ${currentState === 'portfolio' ? 'opacity-70' : ' '}`}
+            className={`text-white hover:opacity-50 font-bold py-2 px-4 transition-all duration-300 ${currentState === 'portfolio' ? 'opacity-60' : ' '}`}
             onClick={() => {
               setCurrentState('portfolio');
               setAnimateName(true);
@@ -110,7 +110,7 @@ export default function Home() {
             Portfolio
           </button>
           <button
-            className={`text-white hover:text-gray-500 font-bold py-2 px-4 transition-colors duration-300 ${currentState === 'contact' ? 'opacity-70' : ' '}`}
+            className={`text-white hover:opacity-50 font-bold py-2 px-4 transition-all duration-300 ${currentState === 'contact' ? 'opacity-60' : ' '}`}
             onClick={() => {
               setCurrentState('contact');
               setAnimateName(true);
@@ -133,7 +133,7 @@ export default function Home() {
       <div
         className={`absolute center p-10 shadow-lg max-w-screen-lg mx-auto text-center transition-all duration-1000 ease-in-out ${animate ? '-translate-y-20' : 'translate-y-0'}`}>
         <div className="flex flex-col gap-0 items-center font-dosis">
-          <h1 className={`text-8xl font-thin text-text tracking-wide transition-all duration-[1000ms] ease-in-out ${animate ? 'text-gray-500' : ' '} ${isHovered ? 'opacity-50' : ' '}`}>
+          <h1 className={`text-8xl font-thin text-text tracking-wide transition-all duration-[1000ms] ease-in-out ${!animate && isHovered ? 'opacity-50' : ' '} ${animate && !isHovered ? 'opacity-20' : ' '} ${animate && isHovered ? 'opacity-10' : ' '}`}>
             Nikita Carelov
           </h1>
           <p className={`text-2xl text-text font-thin italic transition-opacity duration-[1500ms] ${animate ? 'opacity-5' : 'opacity-50'}`}>
