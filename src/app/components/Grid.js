@@ -40,13 +40,13 @@ const Grid = () => {
       const distance = -camera.position.z / dir.z;
       const pos = camera.position.clone().add(dir.multiplyScalar(distance));
       mouseAlphaMapMesh.position.set(pos.x, pos.y, 0);
-    
+
       // Update the bounding box
       mouseAlphaMapMesh.geometry.computeBoundingBox();
       mouseAlphaMapMesh.boundingBox = mouseAlphaMapMesh.geometry.boundingBox.clone().applyMatrix4(mouseAlphaMapMesh.matrixWorld);
       mouseAlphaMapMesh.visible = true;
     };
-    
+
     const onClick = (event) => {
       if (!clickMesh) return; // Guard clause if mesh isn't defined yet
       const rect = renderer.domElement.getBoundingClientRect();
@@ -60,10 +60,10 @@ const Grid = () => {
       clickMesh.position.set(pos.x, pos.y, 0);
       clickMesh.userData = {
         scale: 0.5,
-        opacity: 0.6 // Initialize opacity correctly
+        opacity: 1 // Initialize opacity correctly
       };
       clickMesh.visible = true;
-    
+
       // Update the bounding box
       clickMesh.geometry.computeBoundingBox();
       clickMesh.boundingBox = clickMesh.geometry.boundingBox.clone().applyMatrix4(clickMesh.matrixWorld);
@@ -111,7 +111,7 @@ const Grid = () => {
       const circleMaterial = new THREE.MeshBasicMaterial({
         transparent: true,
         map: circleTexture,
-        opacity: 0.7 // Set starting opacity to 0.7
+        opacity: 1 // Set starting opacity to 0.7
       });
 
       circleCanvas = document.createElement('canvas');
@@ -183,80 +183,84 @@ const Grid = () => {
 
     const animate = () => {
       requestAnimationFrame(animate);
-    
+
       const now = Date.now();
-      const raycastInterval = 10;
+      const raycastInterval = 100;
       let lastRaycast = 0;
-    
+
       if (now - lastRaycast > raycastInterval) {
         squares.forEach(square => {
           square.userData.targetOpacity = 0; // Reset target opacity
           square.userData.targetScale = 1; // Reset target scale
-
           let intersectsBoundingBox = alphaMapMeshes.some(mesh => {
             return mesh?.boundingBox?.intersectsBox(square.boundingBox) && mesh.visible;
           });
-    
+
           if (clickMesh?.boundingBox?.intersectsBox(square.boundingBox) && clickMesh.visible) {
             intersectsBoundingBox = true;
           }
-    
+
           if (intersectsBoundingBox) {
             const rayOrigin = new THREE.Vector3(square.position.x, square.position.y, 100);
             const rayDirection = new THREE.Vector3(0, 0, -1);
             raycaster.set(rayOrigin, rayDirection.normalize());
             const validMeshes = alphaMapMeshes.filter(mesh => mesh && mesh.boundingBox && mesh.visible);
             const intersects = raycaster.intersectObjects([...validMeshes, clickMesh], true);
-    
-            if (intersects.length > 0) {
-              let totalAlpha = 0;
-              intersects.forEach(intersect => {
-                const uv = intersect.uv;
-                const x = Math.floor(uv.x * (intersect.object === clickMesh ? circleCanvas.width : alphaMapCanvas.width));
-                const y = Math.floor(uv.y * (intersect.object === clickMesh ? circleCanvas.height : alphaMapCanvas.height));
-                const index = (y * (intersect.object === clickMesh ? circleCanvas.width : alphaMapCanvas.width) + x) * 4;
-                let alphaValue = 0;
-                if (intersect.object.material.visible) {
-                  alphaValue = (intersect.object === clickMesh ? -circleImageData.data[index + 3] : intersect.object === mouseAlphaMapMesh ? -alphaMapImageData.data[index + 3] : alphaMapImageData.data[index + 3]);
-                }
-    
-                const meshOpacity = intersect.object.material.opacity;
-                totalAlpha += Math.sign(alphaValue) * Math.max(0.05, Math.abs((alphaValue / 255) * meshOpacity));
-              });
-    
-              totalAlpha = Math.min(totalAlpha, 1);
-              square.userData.targetOpacity = totalAlpha;
-              square.userData.targetScale = totalAlpha + 0.5;
-              if (totalAlpha > 0) {
-                square.userData.noiseOpacity = addNoise(totalAlpha, 0.1);
-                square.userData.noiseScale = addNoise(totalAlpha + 0.5, 0.1);
-              } else {
-                square.userData.noiseOpacity = 0;
-                square.userData.noiseScale = 1;
+
+            let totalAlpha = 0;
+            intersects.forEach(intersect => {
+              const uv = intersect.uv;
+              const x = Math.floor(uv.x * (intersect.object === clickMesh ? circleCanvas.width : alphaMapCanvas.width));
+              const y = Math.floor(uv.y * (intersect.object === clickMesh ? circleCanvas.height : alphaMapCanvas.height));
+              const index = (y * (intersect.object === clickMesh ? circleCanvas.width : alphaMapCanvas.width) + x) * 4;
+              let alphaValue = 0;
+              if (intersect.object.material.visible) {
+                alphaValue = (intersect.object === clickMesh ? -circleImageData.data[index + 3] : intersect.object === mouseAlphaMapMesh ? -alphaMapImageData.data[index + 3] : alphaMapImageData.data[index + 3]);
               }
+
+              const meshOpacity = intersect.object.material.opacity;
+              totalAlpha += Math.sign(alphaValue) * Math.max(0.01, Math.abs((alphaValue / 255) * meshOpacity));
+            });
+
+            totalAlpha = Math.min(totalAlpha, 1);
+            square.userData.targetOpacity = totalAlpha;
+            square.userData.targetScale = totalAlpha + 0.5;
+            if (totalAlpha > 0) {
+              square.userData.noiseOpacity = addNoise(totalAlpha, 0.1);
+              square.userData.noiseScale = addNoise(totalAlpha + 0.5, 0.1);
+            } else {
+              square.userData.targetOpacity = 0;
+              square.userData.targetScale = 0;
+              square.userData.noiseOpacity = 1;
+              square.userData.noiseScale = 1;
             }
+
+          } else {
+            square.userData.targetOpacity = 0;
+            square.userData.targetScale = 0;
+
           }
         });
-    
+
         lastRaycast = now;
       }
-    
+
       squares.forEach(square => {
         if (now - lastInteractionTime > raycastInterval) {
           square.userData.targetOpacity *= 0.95;
           square.userData.targetScale = 1 + (square.userData.targetScale - 1) * 0.95;
         }
-    
+
         if (square.userData.currentOpacity !== square.userData.targetOpacity) {
           const opacityDelta = (square.userData.targetOpacity - square.userData.currentOpacity) * 0.1;
           square.userData.currentOpacity += opacityDelta;
         }
-    
+
         if (square.userData.currentScale !== square.userData.targetScale) {
           const scaleDelta = (square.userData.targetScale - square.userData.currentScale) * 0.1;
           square.userData.currentScale += scaleDelta;
         }
-    
+
         if (square.userData.currentOpacity > 0) {
           square.material.opacity = addNoise(square.userData.currentOpacity, 0.1);
           const noisyScale = addNoise(square.userData.currentScale, 0.1);
@@ -269,7 +273,7 @@ const Grid = () => {
         }
         square.material.needsUpdate = true;
       });
-    
+
       orbitingAlphaMapMeshes.forEach((mesh, index) => {
         if (mesh.orbitRadius !== undefined) {
           mesh.orbitAngle += mesh.orbitSpeed;
@@ -284,7 +288,7 @@ const Grid = () => {
           mesh.boundingBox = mesh.geometry.boundingBox.clone().applyMatrix4(mesh.matrixWorld);
         }
       });
-    
+
       if (clickMesh && clickMesh.visible) {
         clickMesh.userData.scale += 0.2;  // Scale up over time
         clickMesh.userData.opacity -= 0.03;  // Decrease opacity at a slower rate
@@ -295,16 +299,16 @@ const Grid = () => {
           clickMesh.scale.set(clickMesh.userData.scale, clickMesh.userData.scale, clickMesh.userData.scale);
           clickMesh.material.opacity = clickMesh.userData.opacity;
           clickMesh.material.needsUpdate = true;
-    
+
           // Update the bounding box
           clickMesh.geometry.computeBoundingBox();
           clickMesh.boundingBox = clickMesh.geometry.boundingBox.clone().applyMatrix4(clickMesh.matrixWorld);
         }
       }
-    
+
       renderer.render(scene, camera);
     };
-    
+
 
     animate();
 
@@ -322,3 +326,5 @@ const Grid = () => {
 };
 
 export default Grid;
+
+
