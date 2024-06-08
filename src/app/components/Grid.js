@@ -28,7 +28,6 @@ const Grid = () => {
     let alphaMapCanvas, alphaMapContext, alphaMapImageData;
     let circleCanvas, circleContext, circleImageData;
 
-    // Define onMouseMove here so it's available in the cleanup function
     const onMouseMove = (event) => {
       lastInteractionTime = Date.now();
       if (!mouseAlphaMapMesh) return; // Guard clause if mesh isn't defined yet
@@ -41,12 +40,13 @@ const Grid = () => {
       const distance = -camera.position.z / dir.z;
       const pos = camera.position.clone().add(dir.multiplyScalar(distance));
       mouseAlphaMapMesh.position.set(pos.x, pos.y, 0);
-
+    
       // Update the bounding box
       mouseAlphaMapMesh.geometry.computeBoundingBox();
       mouseAlphaMapMesh.boundingBox = mouseAlphaMapMesh.geometry.boundingBox.clone().applyMatrix4(mouseAlphaMapMesh.matrixWorld);
+      mouseAlphaMapMesh.visible = true;
     };
-
+    
     const onClick = (event) => {
       if (!clickMesh) return; // Guard clause if mesh isn't defined yet
       const rect = renderer.domElement.getBoundingClientRect();
@@ -59,17 +59,16 @@ const Grid = () => {
       const pos = camera.position.clone().add(dir.multiplyScalar(distance));
       clickMesh.position.set(pos.x, pos.y, 0);
       clickMesh.userData = {
-        scale: 1,
-        opacity: 1 // Initialize opacity correctly
+        scale: 0.5,
+        opacity: 0.6 // Initialize opacity correctly
       };
       clickMesh.visible = true;
-
+    
       // Update the bounding box
       clickMesh.geometry.computeBoundingBox();
       clickMesh.boundingBox = clickMesh.geometry.boundingBox.clone().applyMatrix4(clickMesh.matrixWorld);
     };
 
-    // Load the alpha map texture first
     textureLoader.load('/alphamap.png', (radialGradient) => {
       // Create an offscreen canvas to read pixel data
       alphaMapCanvas = document.createElement('canvas');
@@ -83,10 +82,9 @@ const Grid = () => {
       const radialGradientMaterial = new THREE.MeshBasicMaterial({
         transparent: true,
         map: radialGradient,
-        opacity: 1
+        opacity: 1 // Set starting opacity to 0.7
       });
 
-      // Create instances of alphaMapMesh that orbit around the center
       for (let i = 0; i < 10; i++) {
         const orbitingMesh = new THREE.Mesh(geometry, radialGradientMaterial.clone());
         orbitingMesh.geometry.computeBoundingBox();
@@ -100,7 +98,6 @@ const Grid = () => {
         scene.add(orbitingMesh);
       }
 
-      // Create the mouse follower mesh
       mouseAlphaMapMesh = new THREE.Mesh(geometry, radialGradientMaterial.clone());
       mouseAlphaMapMesh.layers.set(1);
       mouseAlphaMapMesh.geometry.computeBoundingBox();
@@ -109,13 +106,12 @@ const Grid = () => {
       alphaMapMeshes.push(mouseAlphaMapMesh); // Add to array
     });
 
-    // Load the blurred circle texture
     textureLoader.load('/BlurredCircle.png', (circleTexture) => {
       const geometry = new THREE.PlaneGeometry(100, 100);
       const circleMaterial = new THREE.MeshBasicMaterial({
         transparent: true,
         map: circleTexture,
-        opacity: 1
+        opacity: 0.7 // Set starting opacity to 0.7
       });
 
       circleCanvas = document.createElement('canvas');
@@ -159,7 +155,6 @@ const Grid = () => {
       camera.updateProjectionMatrix();
     };
 
-    // Square Grid generation
     for (let i = 0; i < gridWidth; i++) {
       for (let j = 0; j < gridHeight; j++) {
         const geometry = new THREE.PlaneGeometry(baseSquareSize, baseSquareSize);
@@ -188,29 +183,31 @@ const Grid = () => {
 
     const animate = () => {
       requestAnimationFrame(animate);
-
+    
       const now = Date.now();
-      const raycastInterval = 100;
+      const raycastInterval = 10;
       let lastRaycast = 0;
-
+    
       if (now - lastRaycast > raycastInterval) {
         squares.forEach(square => {
-          let intersectsBoundingBox = alphaMapMeshes.some(mesh => {
-            return mesh?.boundingBox?.intersectsBox(square.boundingBox);
-          });
+          square.userData.targetOpacity = 0; // Reset target opacity
+          square.userData.targetScale = 1; // Reset target scale
 
-          // Ensure clickMesh is considered even if squares are not visible
-          if (clickMesh?.boundingBox?.intersectsBox(square.boundingBox)) {
+          let intersectsBoundingBox = alphaMapMeshes.some(mesh => {
+            return mesh?.boundingBox?.intersectsBox(square.boundingBox) && mesh.visible;
+          });
+    
+          if (clickMesh?.boundingBox?.intersectsBox(square.boundingBox) && clickMesh.visible) {
             intersectsBoundingBox = true;
           }
-
+    
           if (intersectsBoundingBox) {
             const rayOrigin = new THREE.Vector3(square.position.x, square.position.y, 100);
             const rayDirection = new THREE.Vector3(0, 0, -1);
             raycaster.set(rayOrigin, rayDirection.normalize());
-            const validMeshes = alphaMapMeshes.filter(mesh => mesh && mesh.boundingBox);
+            const validMeshes = alphaMapMeshes.filter(mesh => mesh && mesh.boundingBox && mesh.visible);
             const intersects = raycaster.intersectObjects([...validMeshes, clickMesh], true);
-
+    
             if (intersects.length > 0) {
               let totalAlpha = 0;
               intersects.forEach(intersect => {
@@ -218,11 +215,15 @@ const Grid = () => {
                 const x = Math.floor(uv.x * (intersect.object === clickMesh ? circleCanvas.width : alphaMapCanvas.width));
                 const y = Math.floor(uv.y * (intersect.object === clickMesh ? circleCanvas.height : alphaMapCanvas.height));
                 const index = (y * (intersect.object === clickMesh ? circleCanvas.width : alphaMapCanvas.width) + x) * 4;
-                const alphaValue = (intersect.object === clickMesh ? -circleImageData.data[index + 3]: intersect.object === mouseAlphaMapMesh ? - alphaMapImageData.data[index + 3]: alphaMapImageData.data[index + 3]);
+                let alphaValue = 0;
+                if (intersect.object.material.visible) {
+                  alphaValue = (intersect.object === clickMesh ? -circleImageData.data[index + 3] : intersect.object === mouseAlphaMapMesh ? -alphaMapImageData.data[index + 3] : alphaMapImageData.data[index + 3]);
+                }
+    
                 const meshOpacity = intersect.object.material.opacity;
-                totalAlpha += (alphaValue / 255) * meshOpacity;
+                totalAlpha += Math.sign(alphaValue) * Math.max(0.05, Math.abs((alphaValue / 255) * meshOpacity));
               });
-
+    
               totalAlpha = Math.min(totalAlpha, 1);
               square.userData.targetOpacity = totalAlpha;
               square.userData.targetScale = totalAlpha + 0.5;
@@ -233,40 +234,29 @@ const Grid = () => {
                 square.userData.noiseOpacity = 0;
                 square.userData.noiseScale = 1;
               }
-            } else {
-              square.userData.targetOpacity = 0;
-              square.userData.targetScale = 1;
-              square.userData.noiseOpacity = 1;
-              square.userData.noiseScale = 1;
             }
-          } else {
-            square.userData.targetOpacity = 0;
-            square.userData.targetScale = 0;
-            square.userData.noiseOpacity = 0;
-            square.userData.noiseScale = 0;
           }
         });
-
+    
         lastRaycast = now;
       }
-
+    
       squares.forEach(square => {
         if (now - lastInteractionTime > raycastInterval) {
           square.userData.targetOpacity *= 0.95;
           square.userData.targetScale = 1 + (square.userData.targetScale - 1) * 0.95;
         }
-
+    
         if (square.userData.currentOpacity !== square.userData.targetOpacity) {
           const opacityDelta = (square.userData.targetOpacity - square.userData.currentOpacity) * 0.1;
           square.userData.currentOpacity += opacityDelta;
         }
-
+    
         if (square.userData.currentScale !== square.userData.targetScale) {
           const scaleDelta = (square.userData.targetScale - square.userData.currentScale) * 0.1;
           square.userData.currentScale += scaleDelta;
         }
-
-        // Apply noisy values for actual rendering
+    
         if (square.userData.currentOpacity > 0) {
           square.material.opacity = addNoise(square.userData.currentOpacity, 0.1);
           const noisyScale = addNoise(square.userData.currentScale, 0.1);
@@ -279,8 +269,7 @@ const Grid = () => {
         }
         square.material.needsUpdate = true;
       });
-
-      // Update positions for orbiting meshes with smooth noise
+    
       orbitingAlphaMapMeshes.forEach((mesh, index) => {
         if (mesh.orbitRadius !== undefined) {
           mesh.orbitAngle += mesh.orbitSpeed;
@@ -295,26 +284,28 @@ const Grid = () => {
           mesh.boundingBox = mesh.geometry.boundingBox.clone().applyMatrix4(mesh.matrixWorld);
         }
       });
-
-      // Update clickMesh
+    
       if (clickMesh && clickMesh.visible) {
-        clickMesh.userData.scale += 0.15;  // Scale up over time
-        clickMesh.userData.opacity -= 0.05;  // Decrease opacity at a slower rate
+        clickMesh.userData.scale += 0.2;  // Scale up over time
+        clickMesh.userData.opacity -= 0.03;  // Decrease opacity at a slower rate
         if (clickMesh.userData.opacity <= 0) {
           clickMesh.visible = false;
+          clickMesh.userData.opacity = 0;  // Ensure opacity is reset
         } else {
           clickMesh.scale.set(clickMesh.userData.scale, clickMesh.userData.scale, clickMesh.userData.scale);
           clickMesh.material.opacity = clickMesh.userData.opacity;
           clickMesh.material.needsUpdate = true;
-
+    
           // Update the bounding box
           clickMesh.geometry.computeBoundingBox();
           clickMesh.boundingBox = clickMesh.geometry.boundingBox.clone().applyMatrix4(clickMesh.matrixWorld);
         }
       }
-
+    
       renderer.render(scene, camera);
     };
+    
+
     animate();
 
     return () => {
