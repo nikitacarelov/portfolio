@@ -1,19 +1,19 @@
 'use client';
-import React, { useState, useRef, useEffect } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import React, { useState, useRef, useEffect, Suspense } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation'; // Correct import for App Router
 import './globals.css';
 import Grid from './components/Grid'; // Ensure the path is correct
 import Header from './components/Header'; // Import the Header component
 
-export default function Home() {
+const HomeContent = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [loading, setLoading] = useState(true); // New loading state
-  const [animate, setAnimateName] = useState(false);
   const [currentState, setCurrentState] = useState('home');
   const [lastScrollTime, setLastScrollTime] = useState(0);
   const [isHovered, setIsHovered] = useState(false); // New state for hover
   const [isTransitioning, setIsTransitioning] = useState(false); // New transition state
+  const [animate, setAnimateName] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   // Refs for scrolling
   const scrollContainerRef = useRef(null);
@@ -21,6 +21,15 @@ export default function Home() {
   const aboutRef = useRef(null);
   const homeRef = useRef(null);
   const contactRef = useRef(null);
+
+  useEffect(() => {
+    const state = searchParams.get('state');
+    if (state) {
+      setCurrentState(state);
+      setAnimateName(state !== 'home');
+    }
+    setLoading(false);
+  }, [searchParams]);
 
   const scrollToSection = (ref) => {
     const container = scrollContainerRef.current;
@@ -35,15 +44,6 @@ export default function Home() {
       });
     }
   };
-
-  useEffect(() => {
-    const state = searchParams.get('state');
-    if (state) {
-      setCurrentState(state);
-      setAnimateName(state !== 'home');
-    }
-    setLoading(false); // Set loading to false after initial load
-  }, [searchParams]);
 
   useEffect(() => {
     if (currentState !== 'home') {
@@ -70,7 +70,7 @@ export default function Home() {
 
     setCurrentState(states[newIndex]);
     setAnimateName(states[newIndex] !== 'home');
-    router.push(`/?state=${states[newIndex]}`);
+    router.push(`/?state=${states[newIndex]}`); // Now router is defined
   };
 
   useEffect(() => {
@@ -176,6 +176,16 @@ export default function Home() {
           </div>
         </div>
       </div>
+    </main>
+  );
+};
+
+export default function Home() {
+  return (
+    <main className="min-h-screen bg-transparent flex flex-col items-center justify-center font-serif transition-all duration-1000 ease-in-out">
+      <Suspense fallback={<div>Loading...</div>}>
+        <HomeContent />
+      </Suspense>
     </main>
   );
 }
