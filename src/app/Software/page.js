@@ -2,10 +2,10 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import './robotics.css';
+import './software.css';
 import Header from '../components/Header'; // Adjust the path as necessary
 
-const RoboticsPage = () => {
+const SoftwarePage = () => {
   const [loading, setLoading] = useState(true);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const router = useRouter();
@@ -20,7 +20,6 @@ const RoboticsPage = () => {
       router.push(url);
     }, 500); // Match this duration with the CSS transition duration
   };
-
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -38,4 +37,5 @@ const RoboticsPage = () => {
   );
 };
 
-export default RoboticsPage;
+
+export default SoftwarePage;

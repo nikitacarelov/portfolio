@@ -14,6 +14,7 @@ const HomeContent = () => {
   const [isTransitioning, setIsTransitioning] = useState(false); // New transition state
   const [animate, setAnimateName] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [isLoaded, setIsLoaded] = useState(false); // New state for fade-in
 
   // Refs for scrolling
   const scrollContainerRef = useRef(null);
@@ -29,6 +30,7 @@ const HomeContent = () => {
       setAnimateName(state !== 'home');
     }
     setLoading(false);
+    setTimeout(() => setIsLoaded(true), 100); // Delay to ensure fade-in works
   }, [searchParams]);
 
   const scrollToSection = (ref) => {
@@ -102,8 +104,13 @@ const HomeContent = () => {
 
   return (
     <main className="min-h-screen bg-transparent flex flex-col items-center justify-center font-serif transition-all duration-1000 ease-in-out">
+      {!isLoaded && (
+        <div className={`loading-overlay ${isLoaded ? 'hidden' : ''}`}>
+          Loading...
+        </div>
+      )}
       <Header currentState={currentState} setCurrentState={setCurrentState} setAnimateName={setAnimateName} />
-      <div className={`content-container ${isTransitioning ? 'fade-out' : ''} flex flex-col items-center justify-center`}>
+      <div className={`content-container ${isTransitioning ? 'fade-out' : ''} ${isLoaded ? 'fade-in' : ''} flex flex-col items-center justify-center`}>
         <Grid />
         <button
           className={`absolute center shadow-lg max-w-screen-lg mx-auto text-center transition-all duration-1000 ease-in-out ${animate ? '-translate-y-20' : 'translate-y-0'}`}
@@ -152,7 +159,7 @@ const HomeContent = () => {
                   Robotics
                 </button>
                 <button className="text-white hover:text-gray-600 font-bold py-4 px-8 text-lg transition-colors duration-300"
-                  onClick={() => handleNavigation('/software')}
+                  onClick={() => handleNavigation('/Software')}
                 >
                   Software
                 </button>
@@ -162,7 +169,7 @@ const HomeContent = () => {
                   3D Art
                 </button>
                 <button className="text-white hover:text-gray-600 font-bold py-4 px-8 text-lg transition-colors duration-300"
-                  onClick={() => handleNavigation('/ai')}
+                  onClick={() => handleNavigation('/Ai')}
                 >
                   AI
                 </button>
@@ -185,7 +192,7 @@ const HomeContent = () => {
 export default function Home() {
   return (
     <main className="min-h-screen bg-transparent flex flex-col items-center justify-center font-serif transition-all duration-1000 ease-in-out">
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense>
         <HomeContent />
       </Suspense>
     </main>

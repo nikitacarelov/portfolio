@@ -4,7 +4,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 html, body {
   overflow: hidden;
   height: 100%;
@@ -19,10 +18,8 @@ html, body {
 
 /* Hide scrollbar for IE, Edge and Firefox */
 .no-scrollbar {
-  -ms-overflow-style: none;
-  /* IE and Edge */
-  scrollbar-width: none;
-  /* Firefox */
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 
 .main-container {
@@ -40,13 +37,11 @@ html, body {
   height: 100%;
   background: rgb(133, 88, 88);
   z-index: -1;
-  /* Background layer */
 }
 
 .header {
   position: relative;
-  z-index: 2;
-  /* Ensure header content is above the grid */
+  z-index: 1000;
 }
 
 body {
@@ -55,45 +50,26 @@ body {
   font-family: Arial, sans-serif;
 }
 
-.loading-screen {
+.loading-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   background-color: #000;
-  color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
-  transition: opacity 0.5s ease-in-out;
+  z-index: 500;
+  transition: opacity 2s ease-in-out;
 }
 
-.loading-screen.hidden {
+.loading-overlay.hidden {
   opacity: 0;
   pointer-events: none;
 }
 
 .fade-out {
   opacity: 0;
-  transition: opacity 0.5s ease-in-out;
-}
-
-.text-container {
-  word-wrap: break-word; /* Legacy browsers */
-  overflow-wrap: break-word; /* Preferred for modern browsers */
-}
-
-.flexible-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-  margin: auto;
-  max-width: 90%; /* Limits the width to 90% of its parent container */
-  min-width: 300px; /* Ensures it doesn't get too small */
-  width: auto; /* Allows the width to adjust based on the content and screen size */
-  box-sizing: border-box; /* Includes padding and border in the element's total width and height */
+  transition: opacity 1s ease-in-out;
 }
