@@ -6,8 +6,10 @@ import './Grid.css';
 const Grid = () => {
   const mountRef = useRef(null);
   let mouseAlphaMapMesh;
+  let clickMesh;
   let lastInteractionTime = 0;
   const orbitingAlphaMapMeshes = []; // Array to hold only orbiting alphaMapMeshes
+  const alphaMapMeshes = []; // Array to hold all alphaMapMeshes
   const simplex = createNoise2D(); // Create a SimplexNoise instance
 
   useEffect(() => {
@@ -23,7 +25,8 @@ const Grid = () => {
     mountRef.current.appendChild(renderer.domElement);
 
     const textureLoader = new THREE.TextureLoader();
-    let textureCanvas, textureContext, imageData;
+    let alphaMapCanvas, alphaMapContext, alphaMapImageData;
+    let circleCanvas, circleContext, circleImageData;
 
     // Define onMouseMove here so it's available in the cleanup function
     const onMouseMove = (event) => {
@@ -44,25 +47,48 @@ const Grid = () => {
       mouseAlphaMapMesh.boundingBox = mouseAlphaMapMesh.geometry.boundingBox.clone().applyMatrix4(mouseAlphaMapMesh.matrixWorld);
     };
 
-    textureLoader.load('/alphamap.png', (texture) => {
+    const onClick = (event) => {
+      if (!clickMesh) return; // Guard clause if mesh isn't defined yet
+      const rect = renderer.domElement.getBoundingClientRect();
+      const x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+      const y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+      const vector = new THREE.Vector3(x, y, 0);
+      vector.unproject(camera);
+      const dir = vector.sub(camera.position).normalize();
+      const distance = -camera.position.z / dir.z;
+      const pos = camera.position.clone().add(dir.multiplyScalar(distance));
+      clickMesh.position.set(pos.x, pos.y, 0);
+      clickMesh.userData = {
+        scale: 1,
+        opacity: 1
+      };
+      clickMesh.visible = true;
+
+      // Update the bounding box
+      clickMesh.geometry.computeBoundingBox();
+      clickMesh.boundingBox = clickMesh.geometry.boundingBox.clone().applyMatrix4(clickMesh.matrixWorld);
+    };
+
+    // Load the alpha map texture first
+    textureLoader.load('/alphamap.png', (radialGradient) => {
       // Create an offscreen canvas to read pixel data
-      textureCanvas = document.createElement('canvas');
-      textureCanvas.width = texture.image.width;
-      textureCanvas.height = texture.image.height;
-      textureContext = textureCanvas.getContext('2d');
-      textureContext.drawImage(texture.image, 0, 0);
-      imageData = textureContext.getImageData(0, 0, textureCanvas.width, textureCanvas.height);
+      alphaMapCanvas = document.createElement('canvas');
+      alphaMapCanvas.width = radialGradient.image.width;
+      alphaMapCanvas.height = radialGradient.image.height;
+      alphaMapContext = alphaMapCanvas.getContext('2d');
+      alphaMapContext.drawImage(radialGradient.image, 0, 0);
+      alphaMapImageData = alphaMapContext.getImageData(0, 0, alphaMapCanvas.width, alphaMapCanvas.height);
 
       const geometry = new THREE.PlaneGeometry(100, 100);
-      const material = new THREE.MeshBasicMaterial({
+      const radialGradientMaterial = new THREE.MeshBasicMaterial({
         transparent: true,
-        map: texture,
+        map: radialGradient,
         opacity: 1
       });
 
       // Create instances of alphaMapMesh that orbit around the center
       for (let i = 0; i < 10; i++) {
-        const orbitingMesh = new THREE.Mesh(geometry, material.clone());
+        const orbitingMesh = new THREE.Mesh(geometry, radialGradientMaterial.clone());
         orbitingMesh.geometry.computeBoundingBox();
         orbitingMesh.layers.set(1);
         orbitingMesh.boundingBox = orbitingMesh.geometry.boundingBox.clone().applyMatrix4(orbitingMesh.matrixWorld);
@@ -70,18 +96,46 @@ const Grid = () => {
         orbitingMesh.orbitSpeed = 0.01 * (i + 1);
         orbitingMesh.orbitAngle = Math.random() * Math.PI * 2;
         orbitingAlphaMapMeshes.push(orbitingMesh); // Add to array
+        alphaMapMeshes.push(orbitingMesh); // Add to array
         scene.add(orbitingMesh);
       }
 
       // Create the mouse follower mesh
-      mouseAlphaMapMesh = new THREE.Mesh(geometry, material.clone());
+      mouseAlphaMapMesh = new THREE.Mesh(geometry, radialGradientMaterial.clone());
       mouseAlphaMapMesh.layers.set(1);
-      scene.add(mouseAlphaMapMesh);
       mouseAlphaMapMesh.geometry.computeBoundingBox();
       mouseAlphaMapMesh.boundingBox = mouseAlphaMapMesh.geometry.boundingBox.clone().applyMatrix4(mouseAlphaMapMesh.matrixWorld);
+      scene.add(mouseAlphaMapMesh);
+      alphaMapMeshes.push(mouseAlphaMapMesh); // Add to array
+    });
+
+    // Load the blurred circle texture
+    textureLoader.load('/BlurredCircle.png', (circleTexture) => {
+      const geometry = new THREE.PlaneGeometry(100, 100);
+      const circleMaterial = new THREE.MeshBasicMaterial({
+        transparent: true,
+        map: circleTexture,
+        opacity: 1
+      });
+
+      circleCanvas = document.createElement('canvas');
+      circleCanvas.width = circleTexture.image.width;
+      circleCanvas.height = circleTexture.image.height;
+      circleContext = circleCanvas.getContext('2d');
+      circleContext.drawImage(circleTexture.image, 0, 0);
+      circleImageData = circleContext.getImageData(0, 0, circleCanvas.width, circleCanvas.height);
+
+      clickMesh = new THREE.Mesh(geometry, circleMaterial);
+      clickMesh.visible = false; // Start invisible
+      clickMesh.layers.set(1);
+      clickMesh.geometry.computeBoundingBox();
+      clickMesh.boundingBox = clickMesh.geometry.boundingBox.clone().applyMatrix4(clickMesh.matrixWorld);
+      alphaMapMeshes.push(clickMesh); // Add to array
+      scene.add(clickMesh);
     });
 
     window.addEventListener('mousemove', onMouseMove);
+    window.addEventListener('click', onClick);
 
     const raycaster = new THREE.Raycaster();
     raycaster.layers.set(1); // raycaster interacts only with layer 1 objects
@@ -105,6 +159,7 @@ const Grid = () => {
       camera.updateProjectionMatrix();
     };
 
+    // Square Grid generation
     for (let i = 0; i < gridWidth; i++) {
       for (let j = 0; j < gridHeight; j++) {
         const geometry = new THREE.PlaneGeometry(baseSquareSize, baseSquareSize);
@@ -119,12 +174,10 @@ const Grid = () => {
           currentOpacity: 0,
           currentScale: 1
         };
-        scene.add(square);
-        squares.push(square);
-
-        // Compute and store the bounding box
         square.geometry.computeBoundingBox();
         square.boundingBox = new THREE.Box3().setFromObject(square);
+        scene.add(square);
+        squares.push(square);
       }
     }
     window.addEventListener('resize', onWindowResize);
@@ -142,24 +195,30 @@ const Grid = () => {
 
       if (now - lastRaycast > raycastInterval) {
         squares.forEach(square => {
-          const intersectsBoundingBox = orbitingAlphaMapMeshes.some(mesh => {
+          let intersectsBoundingBox = alphaMapMeshes.some(mesh => {
             return mesh?.boundingBox?.intersectsBox(square.boundingBox);
           });
+
+          // Ensure clickMesh is considered even if squares are not visible
+          if (clickMesh?.boundingBox?.intersectsBox(square.boundingBox)) {
+            intersectsBoundingBox = true;
+          }
 
           if (intersectsBoundingBox) {
             const rayOrigin = new THREE.Vector3(square.position.x, square.position.y, 100);
             const rayDirection = new THREE.Vector3(0, 0, -1);
             raycaster.set(rayOrigin, rayDirection.normalize());
-            const intersects = raycaster.intersectObjects(orbitingAlphaMapMeshes, true);
+            const validMeshes = alphaMapMeshes.filter(mesh => mesh && mesh.boundingBox);
+            const intersects = raycaster.intersectObjects([...validMeshes, clickMesh], true);
 
             if (intersects.length > 0) {
               let totalAlpha = 0;
               intersects.forEach(intersect => {
                 const uv = intersect.uv;
-                const x = Math.floor(uv.x * textureCanvas.width);
-                const y = Math.floor(uv.y * textureCanvas.height);
-                const index = (y * textureCanvas.width + x) * 4;
-                totalAlpha += imageData.data[index + 3] / 255;
+                const x = Math.floor(uv.x * (intersect.object === clickMesh ? circleCanvas.width : alphaMapCanvas.width));
+                const y = Math.floor(uv.y * (intersect.object === clickMesh ? circleCanvas.height : alphaMapCanvas.height));
+                const index = (y * (intersect.object === clickMesh ? circleCanvas.width : alphaMapCanvas.width) + x) * 4;
+                totalAlpha += (intersect.object === clickMesh ? -circleImageData.data[index + 3]: intersect.object === mouseAlphaMapMesh ? - alphaMapImageData.data[index + 3]: alphaMapImageData.data[index + 3]) / 255;
               });
 
               totalAlpha = Math.min(totalAlpha, 1);
@@ -234,7 +293,22 @@ const Grid = () => {
           mesh.boundingBox = mesh.geometry.boundingBox.clone().applyMatrix4(mesh.matrixWorld);
         }
       });
+      // Update clickMesh
+      if (clickMesh && clickMesh.visible) {
+        clickMesh.userData.scale += 0.1;
+        clickMesh.userData.opacity -= 0.02;  // Decrease opacity at a slower rate
+        if (clickMesh.userData.opacity <= 0) {
+          clickMesh.visible = false;
+        } else {
+          clickMesh.scale.set(clickMesh.userData.scale, clickMesh.userData.scale, clickMesh.userData.scale);
+          clickMesh.material.opacity = clickMesh.userData.opacity;
+          clickMesh.material.needsUpdate = true;
 
+          // Update the bounding box
+          clickMesh.geometry.computeBoundingBox();
+          clickMesh.boundingBox = clickMesh.geometry.boundingBox.clone().applyMatrix4(clickMesh.matrixWorld);
+        }
+      }
       renderer.render(scene, camera);
     };
     animate();
@@ -242,6 +316,7 @@ const Grid = () => {
     return () => {
       window.removeEventListener('resize', onWindowResize);
       window.removeEventListener('mousemove', onMouseMove);
+      window.removeEventListener('click', onClick);
       if (mountRef.current) {
         mountRef.current.removeChild(renderer.domElement);
       }
