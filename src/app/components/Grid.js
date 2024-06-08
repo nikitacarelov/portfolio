@@ -257,7 +257,7 @@ const Grid = () => {
         }
 
         if (square.userData.currentScale !== square.userData.targetScale) {
-          const scaleDelta = (square.userData.targetScale - square.userData.currentScale) * 0.1;
+          const scaleDelta = (square.userData.targetScale - square.userData.currentScale) * 0.05;
           square.userData.currentScale += scaleDelta;
         }
 
