@@ -134,11 +134,13 @@ const HomeContent = () => {
             </div>
             <div ref={aboutRef} className="inline-block w-full flex-shrink-0">
               <div className={`flex justify-center ${currentState === 'about' ? 'opacity-100' : 'opacity-0'} transition-opacity duration-[1000ms] mx-4`}>
-                <p className="text-lg text-text font-medium whitespace-pre-line">
-                  I am a Mechanical Engineer with a passion for 3D Art and Software Development...<br />
-                  Here is another line.<br />
-                  And another line.
-                </p>
+                <div className="text-container">
+                  <p className="text-lg text-text font-medium whitespace-pre-line">
+                    I am a Mechanical Engineer with a passion for 3D Art and Software Development...<br />
+                    Here is another line.<br />
+                    And another line.
+                  </p>
+                </div>
               </div>
             </div>
             <div ref={portfolioRef} className="inline-block w-full flex-shrink-0">
