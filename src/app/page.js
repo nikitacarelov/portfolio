@@ -4,10 +4,18 @@ import './globals.css';
 import Grid from './components/Grid'; // Ensure the path is correct
 
 export default function Home() {
+  const [triggerTransition, setTriggerTransition] = useState(false);
   const [animate, setAnimateName] = useState(false);
   const [currentState, setCurrentState] = useState('home');
   const [lastScrollTime, setLastScrollTime] = useState(0);
   const [isHovered, setIsHovered] = useState(false); // New state for hover
+  
+  const handleButtonClick = () => {
+    setTriggerTransition(true);
+    setTimeout(() => {
+      setTriggerTransition(false);
+    }, 2000); // Duration of the transition
+  };
 
   // Refs for scrolling
   const scrollContainerRef = useRef(null);
@@ -120,7 +128,8 @@ export default function Home() {
           </button>
         </div>
       </header>
-      <Grid />
+      <Grid triggerTransition={triggerTransition} />
+
       <button
         className={`absolute center shadow-lg max-w-screen-lg mx-auto text-center transition-all duration-1000 ease-in-out ${animate ? '-translate-y-20' : 'translate-y-0'}`}
         onClick={() => toggleState('down')}
@@ -158,16 +167,28 @@ export default function Home() {
           </div>
           <div ref={portfolioRef} className="inline-block w-full flex-shrink-0">
             <div className={`flex justify-center ${currentState === 'portfolio' ? 'opacity-100' : 'opacity-0'} transition-opacity duration-[1000ms] mx-4`}>
-              <button className="text-white hover:text-gray-600 font-bold py-4 px-8 text-lg transition-colors duration-300">
+              <button
+                className="text-white hover:text-gray-600 font-bold py-4 px-8 text-lg transition-colors duration-300"
+                onClick={handleButtonClick}
+              >
                 Robotics
               </button>
-              <button className="text-white hover:text-gray-600 font-bold py-4 px-8 text-lg transition-colors duration-300">
+              <button
+                className="text-white hover:text-gray-600 font-bold py-4 px-8 text-lg transition-colors duration-300"
+                onClick={handleButtonClick}
+              >
                 Software
               </button>
-              <button className="text-white hover:text-gray-600 font-bold py-4 px-8 text-lg transition-colors duration-300">
+              <button
+                className="text-white hover:text-gray-600 font-bold py-4 px-8 text-lg transition-colors duration-300"
+                onClick={handleButtonClick}
+              >
                 3D Art
               </button>
-              <button className="text-white hover:text-gray-600 font-bold py-4 px-8 text-lg transition-colors duration-300">
+              <button
+                className="text-white hover:text-gray-600 font-bold py-4 px-8 text-lg transition-colors duration-300"
+                onClick={handleButtonClick}
+              >
                 AI
               </button>
             </div>
