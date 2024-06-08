@@ -60,7 +60,7 @@ const Grid = () => {
       clickMesh.position.set(pos.x, pos.y, 0);
       clickMesh.userData = {
         scale: 1,
-        opacity: 1
+        opacity: 1 // Initialize opacity correctly
       };
       clickMesh.visible = true;
 
@@ -218,7 +218,9 @@ const Grid = () => {
                 const x = Math.floor(uv.x * (intersect.object === clickMesh ? circleCanvas.width : alphaMapCanvas.width));
                 const y = Math.floor(uv.y * (intersect.object === clickMesh ? circleCanvas.height : alphaMapCanvas.height));
                 const index = (y * (intersect.object === clickMesh ? circleCanvas.width : alphaMapCanvas.width) + x) * 4;
-                totalAlpha += (intersect.object === clickMesh ? -circleImageData.data[index + 3]: intersect.object === mouseAlphaMapMesh ? - alphaMapImageData.data[index + 3]: alphaMapImageData.data[index + 3]) / 255;
+                const alphaValue = (intersect.object === clickMesh ? -circleImageData.data[index + 3]: intersect.object === mouseAlphaMapMesh ? - alphaMapImageData.data[index + 3]: alphaMapImageData.data[index + 3]);
+                const meshOpacity = intersect.object.material.opacity;
+                totalAlpha += (alphaValue / 255) * meshOpacity;
               });
 
               totalAlpha = Math.min(totalAlpha, 1);
@@ -293,10 +295,11 @@ const Grid = () => {
           mesh.boundingBox = mesh.geometry.boundingBox.clone().applyMatrix4(mesh.matrixWorld);
         }
       });
+
       // Update clickMesh
       if (clickMesh && clickMesh.visible) {
-        clickMesh.userData.scale += 0.1;
-        clickMesh.userData.opacity -= 0.02;  // Decrease opacity at a slower rate
+        clickMesh.userData.scale += 0.15;  // Scale up over time
+        clickMesh.userData.opacity -= 0.05;  // Decrease opacity at a slower rate
         if (clickMesh.userData.opacity <= 0) {
           clickMesh.visible = false;
         } else {
@@ -309,6 +312,7 @@ const Grid = () => {
           clickMesh.boundingBox = clickMesh.geometry.boundingBox.clone().applyMatrix4(clickMesh.matrixWorld);
         }
       }
+
       renderer.render(scene, camera);
     };
     animate();
