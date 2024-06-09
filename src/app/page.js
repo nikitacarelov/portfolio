@@ -134,10 +134,10 @@ const HomeContent = () => {
             <div ref={homeRef} className="inline-block w-full flex-shrink-0">
               {/* Home content */}
             </div>
-            <div ref={aboutRef} className="inline-block w-full flex-shrink-0">
-              <div className={`flex justify-center ${currentState === 'about' ? 'opacity-100' : 'opacity-0'} transition-opacity duration-[1000ms] mx-4`}>
+            <div ref={aboutRef} className="flex w-full flex-wrap flex-shrink-0 sm:w-auto">
+              <div className={`flex justify-center transition-opacity duration-1000 mx-4 ${currentState === 'about' ? 'opacity-100' : 'opacity-0'}`}>
                 <div className="text-container">
-                  <p className="text-lg text-text font-medium whitespace-pre-line">
+                  <p className="text-lg font-medium whitespace-pre-wrap">
                     I am a Mechanical Engineer with a passion for 3D Art and Software Development...<br />
                     Here is another line.<br />
                     And another line.
@@ -145,6 +145,7 @@ const HomeContent = () => {
                 </div>
               </div>
             </div>
+
             <div ref={portfolioRef} className="inline-block w-full flex-shrink-0">
               <div className={`flex justify-center ${currentState === 'portfolio' ? 'opacity-100' : 'opacity-0'} transition-opacity duration-[1000ms] mx-4`}>
                 <button
@@ -159,7 +160,7 @@ const HomeContent = () => {
                   Software
                 </button>
                 <button className="text-white hover:text-gray-600 font-bold py-4 px-8 text-lg transition-colors duration-300"
-                  onClick={() => handleNavigation('/3dart')}
+                  onClick={() => handleNavigation('/3dArt')}
                 >
                   3D Art
                 </button>
