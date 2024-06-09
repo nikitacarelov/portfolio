@@ -5,6 +5,7 @@ import './Grid.css';
 
 const Grid = ({ triggerTransition }) => {
   const mountRef = useRef(null);
+  const animationFrameIdRef = useRef(null); // Ref to store the animation frame ID
   let mouseAlphaMapMesh;
   let clickMesh;
   let lastInteractionTime = 0;
@@ -26,6 +27,8 @@ const Grid = ({ triggerTransition }) => {
     renderer.setSize(width, height);
     renderer.setClearColor(0x000000, 0);
     mountRef.current.appendChild(renderer.domElement);
+    const raycaster = new THREE.Raycaster();
+    raycaster.layers.set(1);
 
     const textureLoader = new THREE.TextureLoader();
     let alphaMapCanvas, alphaMapContext, alphaMapImageData;
@@ -65,6 +68,17 @@ const Grid = ({ triggerTransition }) => {
       clickMesh.visible = true;
       clickMesh.geometry.computeBoundingBox();
       clickMesh.boundingBox = clickMesh.geometry.boundingBox.clone().applyMatrix4(clickMesh.matrixWorld);
+    };
+
+    const onWindowResize = () => {
+      const newWidth = window.innerWidth;
+      const newHeight = window.innerHeight;
+      renderer.setSize(newWidth, newHeight);
+      camera.left = -newWidth / 2;
+      camera.right = newWidth / 2;
+      camera.top = newHeight / 2;
+      camera.bottom = -newHeight / 2;
+      camera.updateProjectionMatrix();
     };
 
     textureLoader.load('/alphamap.png', (radialGradient) => {
@@ -129,9 +143,7 @@ const Grid = ({ triggerTransition }) => {
 
     window.addEventListener('mousemove', onMouseMove);
     window.addEventListener('click', onClick);
-
-    const raycaster = new THREE.Raycaster();
-    raycaster.layers.set(1);
+    window.addEventListener('resize', onWindowResize);
 
     const gridWidth = 150;
     const gridHeight = 150;
@@ -139,17 +151,6 @@ const Grid = ({ triggerTransition }) => {
     const gap = 2;
     const startX = -(gridWidth * (baseSquareSize + gap)) / 2;
     const startY = -(gridHeight * (baseSquareSize + gap)) / 2;
-
-    const onWindowResize = () => {
-      const newWidth = window.innerWidth;
-      const newHeight = window.innerHeight;
-      renderer.setSize(newWidth, newHeight);
-      camera.left = -newWidth / 2;
-      camera.right = newWidth / 2;
-      camera.top = newHeight / 2;
-      camera.bottom = -newHeight / 2;
-      camera.updateProjectionMatrix();
-    };
 
     for (let i = 0; i < gridWidth; i++) {
       for (let j = 0; j < gridHeight; j++) {
@@ -171,14 +172,13 @@ const Grid = ({ triggerTransition }) => {
         squares.push(square);
       }
     }
-    window.addEventListener('resize', onWindowResize);
 
     const addNoise = (value, amount) => {
       return value * (1 + (Math.random() - 0.5) * amount);
     };
 
     const animate = (time) => {
-      requestAnimationFrame(animate);
+      animationFrameIdRef.current = requestAnimationFrame(animate);
 
       const now = Date.now();
       const raycastInterval = 10;
@@ -341,7 +341,27 @@ const Grid = ({ triggerTransition }) => {
       if (mountRef.current) {
         mountRef.current.removeChild(renderer.domElement);
       }
+      cancelAnimationFrame(animationFrameIdRef.current);
+      scene.traverse(object => {
+        if (!object.isMesh) return;
+        object.geometry.dispose();
+        if (object.material.isMaterial) {
+          cleanMaterial(object.material);
+        } else {
+          for (const material of object.material) cleanMaterial(material);
+        }
+      });
+      renderer.dispose();
     };
+
+    function cleanMaterial(material) {
+      material.dispose();
+      for (const key in material) {
+        if (material[key] && typeof material[key].dispose === 'function') {
+          material[key].dispose();
+        }
+      }
+    }
   }, [triggerTransition]);
 
   return <div ref={mountRef} className="grid-container" />;
