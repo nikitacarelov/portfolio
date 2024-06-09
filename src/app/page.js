@@ -104,13 +104,8 @@ const HomeContent = () => {
 
   return (
     <main className="min-h-screen bg-transparent flex flex-col items-center justify-center font-serif transition-all duration-1000 ease-in-out">
-      {!isLoaded && (
-        <div className={`loading-overlay ${isLoaded ? 'hidden' : ''}`}>
-          Loading...
-        </div>
-      )}
       <Header currentState={currentState} setCurrentState={setCurrentState} setAnimateName={setAnimateName} />
-      <div className={`content-container ${isTransitioning ? 'fade-out' : ''} ${isLoaded ? 'fade-in' : ''} flex flex-col items-center justify-center`}>
+      <div className={`content-container ${isTransitioning ? 'fade-out' : ''} ${isLoaded ? 'fade-in' : 'fade-out'} flex flex-col items-center justify-center`}>
         <Grid />
         <button
           className={`absolute center shadow-lg max-w-screen-lg mx-auto text-center transition-all duration-1000 ease-in-out ${animate ? '-translate-y-20' : 'translate-y-0'}`}
