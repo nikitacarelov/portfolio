@@ -12,6 +12,12 @@ html, body {
   margin: 0;
   padding: 0;
 }
+/* Add this CSS to your globals.css or the relevant CSS file */
+@media (hover: none) and (pointer: coarse) {
+  .hover-disable {
+    pointer-events: none;
+  }
+}
 
 .no-scrollbar::-webkit-scrollbar {
   display: none;

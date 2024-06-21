@@ -120,23 +120,24 @@ const HomeContent = () => {
         <Grid />
 
         <button
-          className={`absolute center shadow-lg max-w-screen-lg mx-auto text-center transition-all duration-1000 ease-in-out ${animate ? '-translate-y-20' : 'translate-y-0'}`}
-          onClick={() => toggleState('down')}
-          onMouseEnter={() => setIsHovered(true)} // Set hover state on mouse enter
-          onMouseLeave={() => setIsHovered(false)} // Reset hover state on mouse leave
-          style={{ cursor: 'pointer', background: 'transparent', border: 'none', zIndex: '1000', padding: '20px', width: '500px', height: '150px' }}
-        >
-        </button>
+  className={`absolute center shadow-lg mx-auto text-center transition-all duration-1000 ease-in-out ${animate ? '-translate-y-20' : 'translate-y-0'} 
+    w-[350px] h-[100px] sm:w-[450px] sm:h-[140px] md:w-[550px] md:h-[150px]`}
+  onClick={() => toggleState('down')}
+  onMouseEnter={() => setIsHovered(true)} // Set hover state on mouse enter
+  onMouseLeave={() => setIsHovered(false)} // Reset hover state on mouse leave
+  style={{ cursor: 'pointer', background: 'transparent', border: 'none', zIndex: '1000' }}
+>
+</button>
 
         <div
           className={`absolute center p-10 shadow-lg max-w-screen-lg mx-auto text-center transition-all duration-1000 ease-in-out ${animate ? '-translate-y-20' : 'translate-y-0'}`}
         >
-          <div className="flex flex-col gap-0 items-center font-dosis">
+          <div className="flex flex-col gap-0 sm:gap-0 md:gap-0 items-center font-dosis">
           <h1 className={`text-5xl sm:text-7xl md:text-8xl font-thin text-text tracking-wide transition-all duration-[300ms] ease-in-out ${!animate && isHovered ? 'opacity-50' : ''} ${animate && !isHovered ? 'opacity-20' : ''} ${animate && isHovered ? 'opacity-10' : ''}`}>
               Nikita Carelov
             </h1>
-            <p className={`text-xl sm:text-2xl text-text font-thin italic transition-opacity duration-[1500ms] ${animate ? 'opacity-5' : 'opacity-50'}`}>
-              Mechanical Engineer | 3D Artist | Developer
+            <p className={`text-xl sm:text-2xl md:text-2xl text-text font-thin italic transition-opacity duration-[1500ms] ${animate ? 'opacity-5' : 'opacity-50'}`}>
+              Future Mechanical Eng | 3D Artist | Developer
             </p>
           </div>
         </div>
@@ -156,7 +157,7 @@ const HomeContent = () => {
               </div>
             </div>
             <div ref={portfolioRef} className="inline-block w-fit flex-shrink-0">
-              <div className={`flex justify-center ${currentState === 'portfolio' ? 'opacity-100' : 'opacity-0'} transition-opacity duration-[1000ms] mx-4`}>
+              <div className={`font-dosis flex justify-center ${currentState === 'portfolio' ? 'opacity-100' : 'opacity-0'} transition-opacity duration-[1000ms] mx-4`}>
                 <button
                   className="text-white hover:text-gray-600 font-bold py-4 px-8 text-lg transition-colors duration-300"
                   onClick={() => handleNavigation('/Robotics')}
