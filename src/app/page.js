@@ -107,6 +107,7 @@ const HomeContent = () => {
       <Header currentState={currentState} setCurrentState={setCurrentState} setAnimateName={setAnimateName} />
       <div className={`content-container ${isTransitioning ? 'fade-out' : ''} ${isLoaded ? 'fade-in' : 'fade-out'} flex flex-col items-center justify-center`}>
         <Grid />
+
         <button
           className={`absolute center shadow-lg max-w-screen-lg mx-auto text-center transition-all duration-1000 ease-in-out ${animate ? '-translate-y-20' : 'translate-y-0'}`}
           onClick={() => toggleState('down')}
@@ -120,7 +121,7 @@ const HomeContent = () => {
           className={`absolute center p-10 shadow-lg max-w-screen-lg mx-auto text-center transition-all duration-1000 ease-in-out ${animate ? '-translate-y-20' : 'translate-y-0'}`}
         >
           <div className="flex flex-col gap-0 items-center font-dosis">
-            <h1 className={`text-8xl font-thin text-text tracking-wide transition-all duration-[300ms] ease-in-out ${!animate && isHovered ? 'opacity-50' : ' '} ${animate && !isHovered ? 'opacity-20' : ' '} ${animate && isHovered ? 'opacity-10' : ' '}`}>
+          <h1 className={`text-6xl sm:text-7xl md:text-8xl font-thin text-text tracking-wide transition-all duration-[300ms] ease-in-out ${!animate && isHovered ? 'opacity-50' : ''} ${animate && !isHovered ? 'opacity-20' : ''} ${animate && isHovered ? 'opacity-10' : ''}`}>
               Nikita Carelov
             </h1>
             <p className={`text-2xl text-text font-thin italic transition-opacity duration-[1500ms] ${animate ? 'opacity-5' : 'opacity-50'}`}>
@@ -134,19 +135,16 @@ const HomeContent = () => {
             <div ref={homeRef} className="inline-block w-full flex-shrink-0">
               {/* Home content */}
             </div>
-            <div ref={aboutRef} className="flex w-full flex-wrap flex-shrink-0 sm:w-auto">
-              <div className={`flex justify-center transition-opacity duration-1000 mx-4 ${currentState === 'about' ? 'opacity-100' : 'opacity-0'}`}>
-                <div className="text-container">
-                  <p className="text-lg font-medium whitespace-pre-wrap">
-                    I am a Mechanical Engineer with a passion for 3D Art and Software Development...<br />
-                    Here is another line.<br />
-                    And another line.
-                  </p>
-                </div>
+            <div ref={aboutRef} className="inline-block w-full flex-shrink-0 flex-wrap ">
+              <div className={`font-dosis flex justify-center ${currentState === 'about' ? 'opacity-100' : 'opacity-0'} transition-opacity duration-[1000ms] mx-4`}>
+              <p className="text-lg text-wrap font-medium whitespace-pre-line max-w-xs sm:max-w-sm md:max-w-md lg:max-w-4xl xl:max-w-5xl 2xl:max-w-6xl">
+                  I am a Mechanical Engineering student with a passion for 3D Art and Software Development...<br />
+                  Here is another line.<br />
+                  And another line.
+                </p>
               </div>
             </div>
-
-            <div ref={portfolioRef} className="inline-block w-full flex-shrink-0">
+            <div ref={portfolioRef} className="inline-block w-fit flex-shrink-0">
               <div className={`flex justify-center ${currentState === 'portfolio' ? 'opacity-100' : 'opacity-0'} transition-opacity duration-[1000ms] mx-4`}>
                 <button
                   className="text-white hover:text-gray-600 font-bold py-4 px-8 text-lg transition-colors duration-300"
@@ -174,7 +172,7 @@ const HomeContent = () => {
             <div ref={contactRef} className="inline-block w-full flex-shrink-0">
               <div className={`flex justify-center ${currentState === 'contact' ? 'opacity-100' : 'opacity-0'} transition-opacity duration-[1000ms] mx-4`}>
                 <p className="text-lg text-text font-medium">
-                  Feel free to reach out to me via email at contact@example.com.
+                  Feel free to reach out to me via email at nikitacarelov@gmail.com.
                 </p>
               </div>
             </div>
