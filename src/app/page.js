@@ -91,12 +91,20 @@ const HomeContent = () => {
       }
     };
 
+    const handleTouchMove = (event) => {
+      // Prevent touch scrolling
+      event.preventDefault();
+    };
+
     window.addEventListener('wheel', handleWheel, { passive: false });
+    window.addEventListener('touchmove', handleTouchMove, { passive: false });
 
     return () => {
       window.removeEventListener('wheel', handleWheel);
+      window.removeEventListener('touchmove', handleTouchMove);
     };
   }, [lastScrollTime]);
+
 
   const handleNavigation = (url) => {
     setIsTransitioning(true);
