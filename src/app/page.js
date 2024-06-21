@@ -114,14 +114,14 @@ const HomeContent = () => {
   };
 
   return (
-    <main className="min-h-screen bg-transparent flex flex-col items-center justify-center font-serif transition-all duration-1000 ease-in-out">
+    <main className="min-h-screen bg-transparent flex flex-col items-center justify-center font-serif">
       <Header currentState={currentState} setCurrentState={setCurrentState} setAnimateName={setAnimateName} />
       <div className={`content-container ${isTransitioning ? 'fade-out' : ''} ${isLoaded ? 'fade-in' : 'fade-out'} flex flex-col items-center justify-center`}>
         <Grid />
 
         <button
-          className={`absolute center shadow-lg mx-auto text-center transition-all duration-1000 ease-in-out ${animate ? '-translate-y-20' : 'translate-y-0'} 
-    w-[350px] h-[100px] sm:w-[450px] sm:h-[140px] md:w-[550px] md:h-[150px]`}
+          className={`absolute center shadow-lg mx-auto text-center transition-transform duration-1000 ease-in-out ${animate ? '-translate-y-20' : 'translate-y-0'} 
+            w-[350px] h-[100px] sm:w-[450px] sm:h-[140px] md:w-[550px] md:h-[150px]`}
           onClick={() => toggleState('down')}
           onMouseEnter={() => setIsHovered(true)} // Set hover state on mouse enter
           onMouseLeave={() => setIsHovered(false)} // Reset hover state on mouse leave
@@ -130,9 +130,9 @@ const HomeContent = () => {
         </button>
 
         <div
-          className={`absolute center p-10 shadow-lg max-w-screen-lg mx-auto text-center transition-transform duration-1000 ease-in-out ${animate ? '-translate-y-20' : 'translate-y-0'}`}
+          className={`absolute center p-10 shadow-lg max-w-screen-lg mx-auto text-center transition-transform duration-1000 ease-in-out ${animate ? '-translate-y-20' : 'translate-y-0'} transition-opacity duration-1000 ease-in-out`}
         >
-          <div className="flex flex-col gap-0 items-center font-dosis transition-opacity duration-1000 ease-in-out">
+          <div className="flex flex-col gap-0 items-center font-dosis">
             <h1 className={`text-5xl sm:text-7xl md:text-8xl font-thin text-text tracking-wide transition-opacity duration-[300ms] ease-in-out ${!animate && isHovered ? 'opacity-50' : ''} ${animate && !isHovered ? 'opacity-20' : ''} ${animate && isHovered ? 'opacity-10' : ''}`}>
               Nikita Carelov
             </h1>
