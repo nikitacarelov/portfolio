@@ -105,6 +105,19 @@ const HomeContent = () => {
     };
   }, [lastScrollTime]);
 
+  const handleTouchStart = (event) => {
+    setIsHovered(true);
+    // Prevent default behavior to avoid unwanted scrolling
+    event.preventDefault();
+  };
+
+  const handleTouchEnd = (event) => {
+    setIsHovered(false);
+    // Handle touch end event
+    toggleState('down');
+    // Prevent default behavior
+    event.preventDefault();
+  };
 
   const handleNavigation = (url) => {
     setIsTransitioning(true);
@@ -125,6 +138,8 @@ const HomeContent = () => {
           onClick={() => toggleState('down')}
           onMouseEnter={() => setIsHovered(true)} // Set hover state on mouse enter
           onMouseLeave={() => setIsHovered(false)} // Reset hover state on mouse leave
+          onTouchStart={handleTouchStart} // Handle touch start
+          onTouchEnd={handleTouchEnd} // Handle touch end
           style={{ cursor: 'pointer', background: 'transparent', border: 'none', zIndex: '1000' }}
         >
         </button>
@@ -152,7 +167,6 @@ const HomeContent = () => {
               <div className={`font-dosis flex justify-center ${currentState === 'about' ? 'opacity-100' : 'opacity-0'} transition-opacity duration-[1000ms] mx-4`}>
                 <p className="text-lg text-wrap font-medium whitespace-pre-line max-w-xs sm:max-w-sm md:max-w-md lg:max-w-4xl xl:max-w-5xl 2xl:max-w-6xl">
                   I am a Mechanical Engineering student and AI enthusiast with a passion for 3D Art and Software Development.<br />
-
                 </p>
               </div>
             </div>
