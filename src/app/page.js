@@ -120,20 +120,20 @@ const HomeContent = () => {
         <Grid />
 
         <button
-  className={`absolute center shadow-lg mx-auto text-center transition-all duration-1000 ease-in-out ${animate ? '-translate-y-20' : 'translate-y-0'} 
+          className={`absolute center shadow-lg mx-auto text-center transition-all duration-1000 ease-in-out ${animate ? '-translate-y-20' : 'translate-y-0'} 
     w-[350px] h-[100px] sm:w-[450px] sm:h-[140px] md:w-[550px] md:h-[150px]`}
-  onClick={() => toggleState('down')}
-  onMouseEnter={() => setIsHovered(true)} // Set hover state on mouse enter
-  onMouseLeave={() => setIsHovered(false)} // Reset hover state on mouse leave
-  style={{ cursor: 'pointer', background: 'transparent', border: 'none', zIndex: '1000' }}
->
-</button>
+          onClick={() => toggleState('down')}
+          onMouseEnter={() => setIsHovered(true)} // Set hover state on mouse enter
+          onMouseLeave={() => setIsHovered(false)} // Reset hover state on mouse leave
+          style={{ cursor: 'pointer', background: 'transparent', border: 'none', zIndex: '1000' }}
+        >
+        </button>
 
         <div
           className={`absolute center p-10 shadow-lg max-w-screen-lg mx-auto text-center transition-all duration-1000 ease-in-out ${animate ? '-translate-y-20' : 'translate-y-0'}`}
         >
           <div className="flex flex-col gap-0 sm:gap-0 md:gap-0 items-center font-dosis">
-          <h1 className={`text-5xl sm:text-7xl md:text-8xl font-thin text-text tracking-wide transition-all duration-[300ms] ease-in-out ${!animate && isHovered ? 'opacity-50' : ''} ${animate && !isHovered ? 'opacity-20' : ''} ${animate && isHovered ? 'opacity-10' : ''}`}>
+            <h1 className={`text-5xl sm:text-7xl md:text-8xl font-thin text-text tracking-wide transition-all duration-[300ms] ease-in-out ${!animate && isHovered ? 'opacity-50' : ''} ${animate && !isHovered ? 'opacity-20' : ''} ${animate && isHovered ? 'opacity-10' : ''}`}>
               Nikita Carelov
             </h1>
             <p className={`text-xl sm:text-2xl md:text-2xl text-text font-thin italic transition-opacity duration-[1500ms] ${animate ? 'opacity-5' : 'opacity-50'}`}>
@@ -149,41 +149,44 @@ const HomeContent = () => {
             </div>
             <div ref={aboutRef} className="inline-block w-full flex-shrink-0 flex-wrap ">
               <div className={`font-dosis flex justify-center ${currentState === 'about' ? 'opacity-100' : 'opacity-0'} transition-opacity duration-[1000ms] mx-4`}>
-              <p className="text-lg text-wrap font-medium whitespace-pre-line max-w-xs sm:max-w-sm md:max-w-md lg:max-w-4xl xl:max-w-5xl 2xl:max-w-6xl">
-                  I am a Mechanical Engineering student with a passion for 3D Art and Software Development...<br />
-                  Here is another line.<br />
-                  And another line.
+                <p className="text-lg text-wrap font-medium whitespace-pre-line max-w-xs sm:max-w-sm md:max-w-md lg:max-w-4xl xl:max-w-5xl 2xl:max-w-6xl">
+                  I am a Mechanical Engineering student and AI enthusiast with a passion for 3D Art and Software Development.<br />
+
                 </p>
               </div>
             </div>
-            <div ref={portfolioRef} className="inline-block w-fit flex-shrink-0">
-              <div className={`font-dosis flex justify-center ${currentState === 'portfolio' ? 'opacity-100' : 'opacity-0'} transition-opacity duration-[1000ms] mx-4`}>
+            <div ref={portfolioRef} className="inline-block w-full flex-shrink-0">
+              <div className={`font-dosis grid grid-cols-2 gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 justify-center ${currentState === 'portfolio' ? 'opacity-100' : 'opacity-0'} transition-opacity duration-[1000ms] mx-4`}>
                 <button
                   className="text-white hover:text-gray-600 font-bold py-4 px-8 text-lg transition-colors duration-300"
                   onClick={() => handleNavigation('/Robotics')}
                 >
                   Robotics
                 </button>
-                <button className="text-white hover:text-gray-600 font-bold py-4 px-8 text-lg transition-colors duration-300"
+                <button
+                  className="text-white hover:text-gray-600 font-bold py-4 px-8 text-lg transition-colors duration-300"
                   onClick={() => handleNavigation('/Software')}
                 >
                   Software
                 </button>
-                <button className="text-white hover:text-gray-600 font-bold py-4 px-8 text-lg transition-colors duration-300"
+                <button
+                  className="text-white hover:text-gray-600 font-bold py-4 px-8 text-lg transition-colors duration-300"
                   onClick={() => handleNavigation('/3dArt')}
                 >
                   3D Art
                 </button>
-                <button className="text-white hover:text-gray-600 font-bold py-4 px-8 text-lg transition-colors duration-300"
+                <button
+                  className="text-white hover:text-gray-600 font-bold py-4 px-8 text-lg transition-colors duration-300"
                   onClick={() => handleNavigation('/Ai')}
                 >
                   AI
                 </button>
               </div>
             </div>
+
             <div ref={contactRef} className="inline-block w-full flex-shrink-0">
               <div className={`font-dosis flex justify-center ${currentState === 'contact' ? 'opacity-100' : 'opacity-0'} transition-opacity duration-[1000ms] mx-4`}>
-              <p className="text-lg text-wrap font-medium whitespace-pre-line max-w-xs sm:max-w-sm md:max-w-md lg:max-w-4xl xl:max-w-5xl 2xl:max-w-6xl">
+                <p className="text-lg text-wrap font-medium whitespace-pre-line max-w-xs sm:max-w-sm md:max-w-md lg:max-w-4xl xl:max-w-5xl 2xl:max-w-6xl">
                   Feel free to reach out to me via email at nikitacarelov@gmail.com
                 </p>
               </div>
