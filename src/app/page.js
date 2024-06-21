@@ -77,6 +77,9 @@ const HomeContent = () => {
 
   useEffect(() => {
     const handleWheel = (event) => {
+      // Prevent default side scrolling
+      event.preventDefault();
+
       const now = Date.now();
       if (now - lastScrollTime < 500) return; // throttle to avoid rapid toggling
       setLastScrollTime(now);
@@ -88,7 +91,7 @@ const HomeContent = () => {
       }
     };
 
-    window.addEventListener('wheel', handleWheel);
+    window.addEventListener('wheel', handleWheel, { passive: false });
 
     return () => {
       window.removeEventListener('wheel', handleWheel);
