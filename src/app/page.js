@@ -158,7 +158,56 @@ const HomeContent = () => {
         </div>
 
         {/* Always Render Scrollable Row */}
+        <div className={`relative w-full overflow-hidden transition-all duration-1000 ${currentState === 'home' ? ' opacity-0' : ' opacity-100'}`}>
+          <div ref={scrollContainerRef} className="overflow-x-auto whitespace-nowrap flex transition-all duration-[1000ms] mt-20 no-scrollbar px-20">
+            <div ref={homeRef} className="inline-block w-full flex-shrink-0">
+              {/* Home content */}
+            </div>
+            <div ref={aboutRef} className="inline-block w-full flex-shrink-0 flex-wrap ">
+              <div className={`font-dosis flex justify-center ${currentState === 'about' ? 'opacity-100' : 'opacity-0'} transition-opacity duration-[1000ms] mx-4`}>
+                <p className="text-lg text-wrap font-medium whitespace-pre-line max-w-xs sm:max-w-sm md:max-w-md lg:max-w-4xl xl:max-w-5xl 2xl:max-w-6xl">
+                  I am a Mechanical Engineering student and AI enthusiast with a passion for 3D Art and Software Development.<br />
+                </p>
+              </div>
+            </div>
+            <div ref={portfolioRef} className="inline-block w-full flex-shrink-0">
+              <div className={`font-dosis grid grid-cols-2 gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 justify-center ${currentState === 'portfolio' ? 'opacity-100' : 'opacity-0'} transition-opacity duration-[1000ms] mx-4`}>
+                <button
+                  className="text-white hover:text-gray-600 font-bold py-4 px-8 text-lg transition-colors duration-300"
+                  onClick={() => handleNavigation('/Robotics')}
+                >
+                  Robotics
+                </button>
+                <button
+                  className="text-white hover:text-gray-600 font-bold py-4 px-8 text-lg transition-colors duration-300"
+                  onClick={() => handleNavigation('/Software')}
+                >
+                  Software
+                </button>
+                <button
+                  className="text-white hover:text-gray-600 font-bold py-4 px-8 text-lg transition-colors duration-300"
+                  onClick={() => handleNavigation('/3dArt')}
+                >
+                  3D Art
+                </button>
+                <button
+                  className="text-white hover:text-gray-600 font-bold py-4 px-8 text-lg transition-colors duration-300"
+                  onClick={() => handleNavigation('/Ai')}
+                >
+                  AI
+                </button>
+              </div>
+            </div>
 
+            <div ref={contactRef} className="inline-block w-full flex-shrink-0">
+              <div className={`font-dosis flex justify-center ${currentState === 'contact' ? 'opacity-100' : 'opacity-0'} transition-opacity duration-[1000ms] mx-4`}>
+                <p className="text-lg text-wrap font-medium whitespace-pre-line max-w-xs sm:max-w-sm md:max-w-md lg:max-w-4xl xl:max-w-5xl 2xl:max-w-6xl">
+                  Feel free to reach out to me via email at nikitacarelov@gmail.com
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </main>
   );
