@@ -1,22 +1,21 @@
 'use client';
 import React, { useState, useRef, useEffect, Suspense } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation'; // Correct import for App Router
+import { useRouter, useSearchParams } from 'next/navigation';
 import './globals.css';
-import Grid from './components/Grid'; // Ensure the path is correct
-import Header from './components/Header'; // Import the Header component
+import Grid from './components/Grid';
+import Header from './components/Header';
 
 const HomeContent = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [currentState, setCurrentState] = useState('home');
   const [lastScrollTime, setLastScrollTime] = useState(0);
-  const [isHovered, setIsHovered] = useState(false); // New state for hover
-  const [isTransitioning, setIsTransitioning] = useState(false); // New transition state
+  const [isHovered, setIsHovered] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
   const [animate, setAnimateName] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [isLoaded, setIsLoaded] = useState(false); // New state for fade-in
+  const [isLoaded, setIsLoaded] = useState(false);
 
-  // Refs for scrolling
   const scrollContainerRef = useRef(null);
   const portfolioRef = useRef(null);
   const aboutRef = useRef(null);
@@ -30,7 +29,7 @@ const HomeContent = () => {
       setAnimateName(state !== 'home');
     }
     setLoading(false);
-    setTimeout(() => setIsLoaded(true), 100); // Delay to ensure fade-in works
+    setTimeout(() => setIsLoaded(true), 100);
   }, [searchParams]);
 
   const scrollToSection = (ref) => {
@@ -72,16 +71,15 @@ const HomeContent = () => {
 
     setCurrentState(states[newIndex]);
     setAnimateName(states[newIndex] !== 'home');
-    router.push(`/?state=${states[newIndex]}`); // Now router is defined
+    router.push(`/?state=${states[newIndex]}`);
   };
 
   useEffect(() => {
     const handleWheel = (event) => {
-      // Prevent default side scrolling
       event.preventDefault();
 
       const now = Date.now();
-      if (now - lastScrollTime < 500) return; // throttle to avoid rapid toggling
+      if (now - lastScrollTime < 500) return;
       setLastScrollTime(now);
 
       if (event.deltaY > 0) {
@@ -92,7 +90,6 @@ const HomeContent = () => {
     };
 
     const handleTouchMove = (event) => {
-      // Prevent touch scrolling
       event.preventDefault();
     };
 
@@ -107,15 +104,12 @@ const HomeContent = () => {
 
   const handleTouchStart = (event) => {
     setIsHovered(true);
-    // Prevent default behavior to avoid unwanted scrolling
     event.preventDefault();
   };
 
   const handleTouchEnd = (event) => {
     setIsHovered(false);
-    // Handle touch end event
     toggleState('down');
-    // Prevent default behavior
     event.preventDefault();
   };
 
@@ -123,7 +117,7 @@ const HomeContent = () => {
     setIsTransitioning(true);
     setTimeout(() => {
       router.push(url);
-    }, 500); // Match this duration with the CSS transition duration
+    }, 500);
   };
 
   return (
@@ -136,10 +130,10 @@ const HomeContent = () => {
           className={`fixed center shadow-lg mx-auto text-center transition-transform duration-1000 ease-in-out ${animate ? '-translate-y-20' : ''} 
             w-[350px] h-[100px] sm:w-[450px] sm:h-[140px] md:w-[550px] md:h-[150px]`}
           onClick={() => toggleState('down')}
-          onMouseEnter={() => setIsHovered(true)} // Set hover state on mouse enter
-          onMouseLeave={() => setIsHovered(false)} // Reset hover state on mouse leave
-          onTouchStart={handleTouchStart} // Handle touch start
-          onTouchEnd={handleTouchEnd} // Handle touch end
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
           style={{ cursor: 'pointer', background: 'transparent', border: 'none', zIndex: '1000' }}
         >
         </button>
@@ -157,7 +151,7 @@ const HomeContent = () => {
           </div>
         </div>
 
-        {/* Always Render Scrollable Row */}
+
         <div className={`relative w-full overflow-hidden transition-all duration-1000 ${currentState === 'home' ? ' opacity-0' : ' opacity-100'}`}>
           <div ref={scrollContainerRef} className="overflow-x-auto whitespace-nowrap flex transition-all duration-[1000ms] mt-20 no-scrollbar px-20">
             <div ref={homeRef} className="inline-block w-full flex-shrink-0">
