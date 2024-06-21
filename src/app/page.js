@@ -121,10 +121,10 @@ const HomeContent = () => {
           className={`absolute center p-10 shadow-lg max-w-screen-lg mx-auto text-center transition-all duration-1000 ease-in-out ${animate ? '-translate-y-20' : 'translate-y-0'}`}
         >
           <div className="flex flex-col gap-0 items-center font-dosis">
-          <h1 className={`text-6xl sm:text-7xl md:text-8xl font-thin text-text tracking-wide transition-all duration-[300ms] ease-in-out ${!animate && isHovered ? 'opacity-50' : ''} ${animate && !isHovered ? 'opacity-20' : ''} ${animate && isHovered ? 'opacity-10' : ''}`}>
+          <h1 className={`text-5xl sm:text-7xl md:text-8xl font-thin text-text tracking-wide transition-all duration-[300ms] ease-in-out ${!animate && isHovered ? 'opacity-50' : ''} ${animate && !isHovered ? 'opacity-20' : ''} ${animate && isHovered ? 'opacity-10' : ''}`}>
               Nikita Carelov
             </h1>
-            <p className={`text-2xl text-text font-thin italic transition-opacity duration-[1500ms] ${animate ? 'opacity-5' : 'opacity-50'}`}>
+            <p className={`text-xl sm:text-2xl text-text font-thin italic transition-opacity duration-[1500ms] ${animate ? 'opacity-5' : 'opacity-50'}`}>
               Mechanical Engineer | 3D Artist | Developer
             </p>
           </div>
@@ -170,9 +170,9 @@ const HomeContent = () => {
               </div>
             </div>
             <div ref={contactRef} className="inline-block w-full flex-shrink-0">
-              <div className={`flex justify-center ${currentState === 'contact' ? 'opacity-100' : 'opacity-0'} transition-opacity duration-[1000ms] mx-4`}>
-                <p className="text-lg text-text font-medium">
-                  Feel free to reach out to me via email at nikitacarelov@gmail.com.
+              <div className={`font-dosis flex justify-center ${currentState === 'contact' ? 'opacity-100' : 'opacity-0'} transition-opacity duration-[1000ms] mx-4`}>
+              <p className="text-lg text-wrap font-medium whitespace-pre-line max-w-xs sm:max-w-sm md:max-w-md lg:max-w-4xl xl:max-w-5xl 2xl:max-w-6xl">
+                  Feel free to reach out to me via email at nikitacarelov@gmail.com
                 </p>
               </div>
             </div>

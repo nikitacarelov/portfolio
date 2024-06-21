@@ -16,11 +16,11 @@ module.exports = {
         
       },
       screens: {
-        'sm': '540px', // 640px - 100px
-        'md': '668px', // 768px - 100px
-        'lg': '924px', // 1024px - 100px
-        'xl': '1180px', // 1280px - 100px
-        '2xl': '1436px', // 1536px - 100px
+        'sm': '590px', // 640px - 100px
+        'md': '718px', // 768px - 100px
+        'lg': '974px', // 1024px - 100px
+        'xl': '1230px', // 1280px - 100px
+        '2xl': '1486px', // 1536px - 100px
       },
       fontSize: {
         'xs': '0.75rem',
