@@ -145,7 +145,7 @@ const HomeContent = () => {
         </button>
 
         <div
-          className={`absolute center p-10 shadow-lg max-w-screen-lg mx-auto text-center transition-transform duration-1000 ease-in-out ${animate ? '-translate-y-20' : 'translate-y-0'} transition-opacity duration-1000 ease-in-out`}
+          className={`absolute center p-10 shadow-lg max-w-screen-lg mx-auto text-center transition-transform duration-1000 ease-in-out ${animate ? '-translate-y-20' : 'translate-y-0'}`}
         >
           <div className="flex flex-col gap-0 items-center font-dosis">
             <h1 className={`text-5xl sm:text-7xl md:text-8xl font-thin text-text tracking-wide transition-opacity duration-[300ms] ease-in-out ${!animate && isHovered ? 'opacity-50' : ''} ${animate && !isHovered ? 'opacity-20' : ''} ${animate && isHovered ? 'opacity-10' : ''}`}>
