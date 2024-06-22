@@ -38,6 +38,12 @@ const HomeContent = () => {
     setTimeout(() => setInitialRender(false), 50);
   }, []);
 
+  useEffect(() => {
+    if (initialRender) {
+      window.dispatchEvent(new Event('resize'));
+    }
+  }, [initialRender]);
+
   const scrollToSection = (ref) => {
     const container = scrollContainerRef.current;
     const section = ref.current;
