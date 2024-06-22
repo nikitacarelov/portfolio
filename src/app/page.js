@@ -159,7 +159,7 @@ const HomeContent = () => {
         </div>
 
           {/* Always Render Scrollable Row */}
-          <div className={`absolute w-full overflow-hidden transition-all duration-1000 ${currentState === 'home' ? ' opacity-0' : ' opacity-100'}`}>
+          <div className={`relative w-full overflow-hidden transition-all duration-1000 ${currentState === 'home' ? ' opacity-0' : ' opacity-100'}`}>
           <div ref={scrollContainerRef} className="overflow-x-auto whitespace-nowrap flex transition-all duration-[1000ms] mt-20 no-scrollbar px-20">
             <div ref={homeRef} className="inline-block w-full flex-shrink-0">
               {/* Home content */}
