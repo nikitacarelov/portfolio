@@ -96,7 +96,7 @@ const Grid = ({ triggerTransition }) => {
         opacity: 1
       });
 
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < 15; i++) {
         const orbitingMesh = new THREE.Mesh(geometry, radialGradientMaterial.clone());
         orbitingMesh.geometry.computeBoundingBox();
         orbitingMesh.layers.set(1);
