@@ -1,4 +1,4 @@
-'use client';
+"use client"
 import React, { useState, useRef, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import './globals.css';
@@ -15,6 +15,7 @@ const HomeContent = () => {
   const [animate, setAnimateName] = useState(false);
   const [loading, setLoading] = useState(true);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [initialRender, setInitialRender] = useState(true); // New state for initial render
 
   const scrollContainerRef = useRef(null);
   const portfolioRef = useRef(null);
@@ -31,6 +32,11 @@ const HomeContent = () => {
     setLoading(false);
     setTimeout(() => setIsLoaded(true), 100);
   }, [searchParams]);
+
+  useEffect(() => {
+    // Force a re-render to fix the initial alignment issue
+    setTimeout(() => setInitialRender(false), 50);
+  }, []);
 
   const scrollToSection = (ref) => {
     const container = scrollContainerRef.current;
@@ -121,7 +127,7 @@ const HomeContent = () => {
   };
 
   return (
-    <main className="min-h-screen bg-transparent flex flex-col items-center justify-center font-serif">
+    <main className={`min-h-screen bg-transparent flex flex-col items-center justify-center font-serif ${initialRender ? '' : 'transition-all duration-1000 ease-in-out'}`}>
       <Header currentState={currentState} setCurrentState={setCurrentState} setAnimateName={setAnimateName} />
       <div className={`content-container ${isTransitioning ? 'fade-out' : ''} ${isLoaded ? 'fade-in' : 'fade-out'} flex flex-col items-center justify-center`}>
         <Grid />
@@ -151,7 +157,6 @@ const HomeContent = () => {
           </div>
         </div>
 
-
         <div className={`fixed w-full overflow-hidden transition-all duration-1000 ${currentState === 'home' ? ' opacity-0' : ' opacity-100'}`}>
           <div ref={scrollContainerRef} className="overflow-x-auto whitespace-nowrap flex transition-all duration-[1000ms] mt-20 no-scrollbar px-20">
             <div ref={homeRef} className="inline-block w-full flex-shrink-0">
@@ -165,7 +170,7 @@ const HomeContent = () => {
               </div>
             </div>
             <div ref={portfolioRef} className="inline-block w-full flex-shrink-0">
-              <div className={`font-dosis grid grid-cols-2 gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 justify-center ${currentState === 'portfolio' ? 'opacity-100' : 'opacity-0'} transition-opacity duration-[1000ms] mx-4`}>
+              <div className={`font-dosis grid grid-cols-2 gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 justify-center ${currentState === 'portfolio' ? 'opacity-100' : 'opacity-0'} transition-opacity duration-[1000ms] mx-auto max-w-screen-md`}>
                 <button
                   className="text-white hover:text-gray-600 font-bold py-4 px-8 text-lg transition-colors duration-300"
                   onClick={() => handleNavigation('/Robotics')}
