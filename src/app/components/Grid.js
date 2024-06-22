@@ -15,6 +15,7 @@ const Grid = ({ triggerTransition }) => {
   const simplex = createNoise2D();
   let transitionPhase = 0; // 0: Idle, 1: Orbiting circles shrinking, 2: Squares scaling up, 3: Grid disappearing
   let transitionStartTime = null;
+  const mousePos = new THREE.Vector3();
 
   useEffect(() => {
     const width = window.innerWidth;
@@ -48,6 +49,9 @@ const Grid = ({ triggerTransition }) => {
       mouseAlphaMapMesh.geometry.computeBoundingBox();
       mouseAlphaMapMesh.boundingBox = mouseAlphaMapMesh.geometry.boundingBox.clone().applyMatrix4(mouseAlphaMapMesh.matrixWorld);
       mouseAlphaMapMesh.visible = true;
+
+      // Update mouse position
+      mousePos.copy(pos);
     };
 
     const onClick = (event) => {
@@ -96,7 +100,7 @@ const Grid = ({ triggerTransition }) => {
         opacity: 1
       });
 
-      for (let i = 0; i < 15; i++) {
+      for (let i = 0; i < 10; i++) {
         const orbitingMesh = new THREE.Mesh(geometry, radialGradientMaterial.clone());
         orbitingMesh.geometry.computeBoundingBox();
         orbitingMesh.layers.set(1);
@@ -274,12 +278,18 @@ const Grid = ({ triggerTransition }) => {
         }
 
         if (mesh.orbitRadius !== undefined) {
+          // Calculate repulsive force
+          const forceDirection = new THREE.Vector3().subVectors(mesh.position, mousePos);
+          const distance = forceDirection.length();
+          const repulsionStrength = Math.max(0, 1 - (distance / 2000)); // adjust 300 to change the effective range of the force field
+          forceDirection.normalize().multiplyScalar(repulsionStrength * 30); // adjust 5 to change the strength of the repulsion
+
           mesh.orbitAngle += mesh.orbitSpeed;
           const noiseValue = simplex(index, now * 0.0001) * 50;
           const smoothOrbitRadius = mesh.orbitRadius + noiseValue;
           mesh.position.set(
-            smoothOrbitRadius * Math.cos(mesh.orbitAngle),
-            smoothOrbitRadius * Math.sin(mesh.orbitAngle),
+            smoothOrbitRadius * Math.cos(mesh.orbitAngle) + forceDirection.x,
+            smoothOrbitRadius * Math.sin(mesh.orbitAngle) + forceDirection.y,
             0
           );
           mesh.geometry.computeBoundingBox();
