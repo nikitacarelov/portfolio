@@ -54,13 +54,7 @@ body {
   margin: 0;
   padding: 0;
 }
-.centered {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  /* bring your own prefixes */
-  transform: translate(-50%, -50%);
-}
+
 .loading-overlay {
   position: fixed;
   top: 0;
@@ -74,6 +68,13 @@ body {
   z-index: 500;
   opacity: 1;
   transition: opacity 2s ease-in-out;
+}
+
+.center-content {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
 }
 
 .loading-overlay.hidden {

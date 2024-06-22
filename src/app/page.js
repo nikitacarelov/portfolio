@@ -15,7 +15,6 @@ const HomeContent = () => {
   const [animate, setAnimateName] = useState(false);
   const [loading, setLoading] = useState(true);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [initialRender, setInitialRender] = useState(true); // New state for initial render
 
   const scrollContainerRef = useRef(null);
   const portfolioRef = useRef(null);
@@ -35,14 +34,10 @@ const HomeContent = () => {
 
   useEffect(() => {
     // Force a re-render to fix the initial alignment issue
-    setTimeout(() => setInitialRender(false), 50);
-  }, []);
-
-  useEffect(() => {
-    if (initialRender) {
+    setTimeout(() => {
       window.dispatchEvent(new Event('resize'));
-    }
-  }, [initialRender]);
+    }, 100);
+  }, []);
 
   const scrollToSection = (ref) => {
     const container = scrollContainerRef.current;
@@ -133,7 +128,7 @@ const HomeContent = () => {
   };
 
   return (
-    <main className={`min-h-screen bg-transparent flex flex-col items-center justify-center font-serif ${initialRender ? '' : 'transition-all duration-1000 ease-in-out'}`}>
+    <main className="min-h-screen bg-transparent flex flex-col items-center justify-center font-serif transition-all duration-1000 ease-in-out">
       <Header currentState={currentState} setCurrentState={setCurrentState} setAnimateName={setAnimateName} />
       <div className={`content-container ${isTransitioning ? 'fade-out' : ''} ${isLoaded ? 'fade-in' : 'fade-out'} flex flex-col items-center justify-center`}>
         <Grid />
@@ -153,7 +148,7 @@ const HomeContent = () => {
         <div
           className={`fixed center p-10 shadow-lg max-w-screen-lg mx-auto text-center transition-transform duration-1000 ease-in-out ${animate ? '-translate-y-20' : ''}`}
         >
-          <div className="flex flex-col gap-0 items-center font-dosis">
+          <div className="center-content font-dosis">
             <h1 className={`text-5xl sm:text-7xl md:text-8xl font-thin text-text tracking-wide transition-opacity duration-[300ms] ease-in-out ${!animate && isHovered ? 'opacity-50' : ''} ${animate && !isHovered ? 'opacity-20' : ''} ${animate && isHovered ? 'opacity-10' : ''}`}>
               Nikita Carelov
             </h1>
@@ -220,7 +215,7 @@ const HomeContent = () => {
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-transparent flex flex-col items-center justify-center font-serif transition-all duration-1000 ease-in-out">
+    <main className="min-h-screen bg-transparent font-serif transition-all duration-1000 ease-in-out">
       <Suspense>
         <HomeContent />
       </Suspense>
