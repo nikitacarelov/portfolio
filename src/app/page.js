@@ -146,9 +146,9 @@ const HomeContent = () => {
         </button>
 
         <div
-          className={`fixed center p-10 shadow-lg max-w-screen-lg mx-auto text-center transition-transform duration-1000 ease-in-out ${animate ? '-translate-y-20' : ''}`}
+          className={`fixed flex center p-10 shadow-lg max-w-screen-lg mx-auto text-center transition-transform duration-1000 ease-in-out ${animate ? '-translate-y-20' : ''}`}
         >
-          <div className="center font-dosis">
+          <div className="center-content flex font-dosis">
             <h1 className={`text-5xl sm:text-7xl md:text-8xl font-thin text-text tracking-wide transition-opacity duration-[300ms] ease-in-out ${!animate && isHovered ? 'opacity-50' : ''} ${animate && !isHovered ? 'opacity-20' : ''} ${animate && isHovered ? 'opacity-10' : ''}`}>
               Nikita Carelov
             </h1>
@@ -158,8 +158,8 @@ const HomeContent = () => {
           </div>
         </div>
 
-          {/* Always Render Scrollable Row */}
-          <div className={`fixed w-full overflow-hidden transition-all duration-1000 ${currentState === 'home' ? ' opacity-0' : ' opacity-100'}`}>
+        {/* Always Render Scrollable Row */}
+        <div className={`fixed flex w-full overflow-hidden transition-all duration-1000 ${currentState === 'home' ? ' opacity-0' : ' opacity-100'}`}>
           <div ref={scrollContainerRef} className="overflow-x-auto whitespace-nowrap flex transition-all duration-[1000ms] mt-20 no-scrollbar px-20">
             <div ref={homeRef} className="inline-block w-full flex-shrink-0">
               {/* Home content */}
