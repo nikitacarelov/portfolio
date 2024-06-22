@@ -13,7 +13,6 @@ module.exports = {
       },
       fontFamily: {
         dosis: ['dosis', 'sans-serif']
-        
       },
       screens: {
         'sm': '590px', // 640px - 100px
@@ -35,10 +34,23 @@ module.exports = {
         '5xl': '3rem',
         '6xl': '4rem',
         '7xl': '5rem',
-        '8x1': '6rem',
+        '8xl': '6rem',
         // Add or customize other sizes as needed
       },
-  
+      maxWidth: {
+        'xs': '20rem',       // 320px
+        'sm': '24rem',       // 384px
+        'md': '28rem',       // 448px
+        'lg': '64rem',       // 1024px
+        'xl': '80rem',       // 1280px
+        '2xl': '96rem',      // 1536px
+        // Custom sizes
+        'screen-sm': '590px',
+        'screen-md': '718px',
+        'screen-lg': '974px',
+        'screen-xl': '1230px',
+        'screen-2xl': '1486px',
+      },
     },
   },
   darkMode: 'class', // or 'media' for automatic switching based on user's system settings
