@@ -45,13 +45,14 @@ const HomeContent = () => {
     if (container && section) {
       const containerRect = container.getBoundingClientRect();
       const sectionRect = section.getBoundingClientRect();
-      const scrollPosition = sectionRect.left - containerRect.left + container.scrollLeft - containerRect.width / 2 + sectionRect.width / 2;
+      const scrollPosition = sectionRect.left - containerRect.left + container.scrollLeft - (containerRect.width - sectionRect.width) / 2;
       container.scrollTo({
         left: scrollPosition,
         behavior: 'smooth',
       });
     }
   };
+  
 
   useEffect(() => {
     if (currentState !== 'home') {
@@ -159,8 +160,8 @@ const HomeContent = () => {
         </div>
 
         {/* Always Render Scrollable Row */}
-        <div className={`fixed flex w-full overflow-hidden transition-all duration-1000 ${currentState === 'home' ? ' opacity-0' : ' opacity-100'}`}>
-          <div ref={scrollContainerRef} className="overflow-x-auto whitespace-nowrap flex transition-all duration-[1000ms] mt-20 no-scrollbar px-20">
+        <div className={`fixed center w-full overflow-hidden transition-all duration-1000 ${currentState === 'home' ? ' opacity-0' : ' opacity-100'}`}>
+          <div ref={scrollContainerRef} className="static overflow-x-auto whitespace-nowrap flex transition-all duration-[1000ms] mt-20 no-scrollbar px-20">
             <div ref={homeRef} className="inline-block w-full flex-shrink-0">
               {/* Home content */}
             </div>
@@ -174,25 +175,25 @@ const HomeContent = () => {
             <div ref={portfolioRef} className="inline-block w-full flex-shrink-0">
               <div className={`font-dosis grid grid-cols-2 gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 justify-center ${currentState === 'portfolio' ? 'opacity-100' : 'opacity-0'} transition-opacity duration-[1000ms] mx-auto max-w-screen-md`}>
                 <button
-                  className="text-white hover:text-gray-600 font-bold py-4 px-8 text-lg transition-colors duration-300"
+                  className="text-white hover:text-gray-600 font-bold py-4 px-8 text-xl tracking-wide transition-colors duration-300"
                   onClick={() => handleNavigation('/Robotics')}
                 >
                   Robotics
                 </button>
                 <button
-                  className="text-white hover:text-gray-600 font-bold py-4 px-8 text-lg transition-colors duration-300"
+                  className="text-white hover:text-gray-600 font-bold py-4 px-8 text-xl tracking-wide transition-colors duration-300"
                   onClick={() => handleNavigation('/Software')}
                 >
                   Software
                 </button>
                 <button
-                  className="text-white hover:text-gray-600 font-bold py-4 px-8 text-lg transition-colors duration-300"
+                  className="text-white hover:text-gray-600 font-bold py-4 px-8 text-xl tracking-wide transition-colors duration-300"
                   onClick={() => handleNavigation('/3dArt')}
                 >
                   3D Art
                 </button>
                 <button
-                  className="text-white hover:text-gray-600 font-bold py-4 px-8 text-lg transition-colors duration-300"
+                  className="text-white hover:text-gray-600 font-bold py-4 px-8 text-xl tracking-wide transition-colors duration-300"
                   onClick={() => handleNavigation('/Ai')}
                 >
                   AI
