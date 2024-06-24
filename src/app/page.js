@@ -173,30 +173,31 @@ const HomeContent = () => {
               </div>
             </div>
             <div ref={portfolioRef} className="inline-block w-full flex-shrink-0">
+
               <div className={`font-dosis grid grid-cols-2 gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 justify-center ${currentState === 'portfolio' ? 'opacity-100' : 'opacity-0'} transition-opacity duration-[1000ms] mx-auto max-w-screen-md`}>
                 <button
                   className="text-white hover:text-gray-600 font-bold py-4 px-8 text-xl tracking-wide transition-colors duration-300"
-                  onClick={() => handleNavigation('/Robotics')}
+                  onClick={() => handleNavigation('/LUV')}
                 >
-                  Robotics
+                  LUV Redesign
                 </button>
                 <button
                   className="text-white hover:text-gray-600 font-bold py-4 px-8 text-xl tracking-wide transition-colors duration-300"
                   onClick={() => handleNavigation('/Software')}
                 >
-                  Software
+                  Software (in dev)
                 </button>
                 <button
                   className="text-white hover:text-gray-600 font-bold py-4 px-8 text-xl tracking-wide transition-colors duration-300"
                   onClick={() => handleNavigation('/3dArt')}
                 >
-                  3D Art
+                  3D Art  (in dev)
                 </button>
                 <button
                   className="text-white hover:text-gray-600 font-bold py-4 px-8 text-xl tracking-wide transition-colors duration-300"
                   onClick={() => handleNavigation('/Ai')}
                 >
-                  AI
+                  AI  (in dev)
                 </button>
               </div>
             </div>
