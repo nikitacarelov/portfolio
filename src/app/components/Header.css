@@ -1,0 +1,41 @@
+html {
+    scroll-behavior: smooth;
+    overflow: auto !important;
+  }
+  
+  .main-container {
+    position: relative;
+    min-height: 100vh;
+    z-index: 2100;
+  }
+  
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Ensure it's above other elements */
+    background-color: black; /* Set background color */
+    padding: 1rem; /* Adjust padding as needed */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .header .nav-buttons {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-left: auto; /* Ensure buttons are aligned to the right */
+  }
+  
+  .header .nav-buttons button {
+    margin-right: 1rem;
+    font-weight: bold;
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  .header .nav-buttons button:hover {
+    opacity: 0.7;
+  }
+  

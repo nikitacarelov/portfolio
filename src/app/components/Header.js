@@ -18,8 +18,9 @@ const Header = ({ currentState, setCurrentState, setAnimateName }) => {
   };
 
   return (
-    <header className="w-full py-5 text-white flex justify-between items-center px-10" style={{ backgroundColor: 'transparent' }}>
-      <div className="ml-auto absolute top-0 right-0 mr-10 mt-5 font-dosis">
+    <header className="fixed top-0 left-0 w-full z-1000 p-0 flex justify-between items-center">
+      <div className="ml-auto absolute top-0 right-0 mr-10 mt-5 font-dosis drop-shadow-[0_1.5px_1.5px_rgba(0,0,0,1)]
+">
         <button
           className={`text-white hover:opacity-50 font-bold py-2 px-4 transition-all duration-300 ${currentState === 'home' ? 'opacity-60' : ' '}`}
           onClick={() => handleNavigation('home')}

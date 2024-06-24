@@ -52,7 +52,7 @@ const HomeContent = () => {
       });
     }
   };
-  
+
 
   useEffect(() => {
     if (currentState !== 'home') {
@@ -148,26 +148,34 @@ const HomeContent = () => {
 
         <div
           className={`fixed center max-w-screen-lg mx-auto text-center transition-transform duration-1000 ease-in-out ${animate ? '-translate-y-20' : ''}`}
-          >
+        >
           <div className="center-content gap-0 font-dosis">
-            <h1 className={`text-5xl sm:text-7xl md:text-8xl font-thin text-text tracking-wide transition-opacity duration-[300ms] ease-in-out ${!animate && isHovered ? 'opacity-50' : ''} ${animate && !isHovered ? 'opacity-20' : ''} ${animate && isHovered ? 'opacity-10' : ''}`}>
+            <h1 className={`drop-shadow-[0_1.5px_1.5px_rgba(0,0,0,1)]
+text-5xl sm:text-7xl md:text-8xl font-thin text-text tracking-wide 
+transition-opacity duration-[300ms] ease-in-out 
+leading-none m-0 p-0 inline-block ${!animate && isHovered ? 'opacity-50' : ''} 
+${animate && !isHovered ? 'opacity-20' : ''} 
+${animate && isHovered ? 'opacity-10' : ''}`}>
               Nikita Carelov
             </h1>
-            <p className={`text-xl sm:text-2xl md:text-2xl text-text font-thin italic transition-opacity duration-[1500ms] ${animate ? 'opacity-5' : 'opacity-50'}`}>
+
+            <p className={`drop-shadow-[0_1.5px_1.5px_rgba(0,0,0,1)]
+text-xl sm:text-2xl md:text-2xl text-text font-thin italic transition-opacity duration-[1500ms] ${animate ? 'opacity-5' : 'opacity-50'}`}>
               Future Mechanical Eng | 3D Artist | Developer
             </p>
           </div>
         </div>
 
         {/* Always Render Scrollable Row */}
-        <div className={`fixed center w-full overflow-hidden transition-all duration-1000 ${currentState === 'home' ? ' opacity-0' : ' opacity-100'}`}>
+        <div className={`drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,1)]
+ fixed center w-full overflow-hidden transition-all duration-1000 ${currentState === 'home' ? ' opacity-0' : ' opacity-100'}`}>
           <div ref={scrollContainerRef} className="static overflow-x-auto whitespace-nowrap flex transition-all duration-[1000ms] mt-20 no-scrollbar px-20">
             <div ref={homeRef} className="inline-block w-full flex-shrink-0">
               {/* Home content */}
             </div>
             <div ref={aboutRef} className="inline-block w-full flex-shrink-0 flex-wrap ">
               <div className={`font-dosis flex justify-center ${currentState === 'about' ? 'opacity-100' : 'opacity-0'} transition-opacity duration-[1000ms] mx-4`}>
-                <p className="text-xlg text-wrap font-medium whitespace-pre-line max-w-xs sm:max-w-sm md:max-w-md lg:max-w-4xl xl:max-w-5xl 2xl:max-w-6xl">
+                <p className="text-xl text-wrap font-medium whitespace-pre-line max-w-xs sm:max-w-sm md:max-w-md lg:max-w-4xl xl:max-w-5xl 2xl:max-w-6xl">
                   I am a Mechanical Engineering student and AI enthusiast with a passion for 3D Art and Software Development.<br />
                 </p>
               </div>
@@ -203,9 +211,12 @@ const HomeContent = () => {
             </div>
 
             <div ref={contactRef} className="inline-block w-full flex-shrink-0">
-              <div className={`font-dosis flex justify-center ${currentState === 'contact' ? 'opacity-100' : 'opacity-0'} transition-opacity duration-[1000ms] mx-4`}>
-                <p className="text-xlg text-wrap font-medium whitespace-pre-line max-w-xs sm:max-w-sm md:max-w-md lg:max-w-4xl xl:max-w-5xl 2xl:max-w-6xl">
-                  Feel free to reach out to me via email at nikitacarelov@gmail.com
+              <div className={`space-x-1 font-dosis flex justify-center ${currentState === 'contact' ? 'opacity-100' : 'opacity-0'} transition-opacity duration-[1000ms] mx-4`}>
+                <p className="text-xl text-wrap font-medium whitespace-pre-line max-w-xs sm:max-w-sm md:max-w-md lg:max-w-4xl xl:max-w-5xl 2xl:max-w-6xl">
+                  Feel free to reach out to me via email at
+                </p>
+                <p className="underline decoration-1 text-xl text-wrap font-medium tracking-wider whitespace-pre-line max-w-xs sm:max-w-sm md:max-w-md lg:max-w-4xl xl:max-w-5xl 2xl:max-w-6xl">
+                   nikitacarelov@gmail.com
                 </p>
               </div>
             </div>

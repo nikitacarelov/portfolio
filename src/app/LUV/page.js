@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import './robotics.css';
+import './luv.css';
 import Header from '../components/Header'; // Adjust the path as necessary
 import Image from 'next/image'
 import Render11 from './Render11.png'
@@ -25,7 +25,7 @@ const LUVPage = () => {
 
 
   return (
-    <div className="min-h-screen">
+    <div className="">
       <Header />
       <div className={`content-container ${isTransitioning ? 'fade-out' : ''}`}>
         {loading
@@ -40,7 +40,7 @@ const LUVPage = () => {
                 |
               </h1>
               <div className='flex content-center'>
-                <div className='font-dosis inline-block content-center text-xl'>
+                <div className='font-dosis inline-block content-center text-base md:text-base'>
                   June 2024<br />
 
                   Tools Used: <br />
@@ -48,6 +48,24 @@ const LUVPage = () => {
                   Unreal Engine 5,
                   Datasmith Plugin
                 </div>
+              </div>
+            </div>
+
+            <div className="inline-block w-full flex-shrink-0 flex-wrap mx-4">
+              <div className={`flex justify-center transition-opacity duration-[1000ms]`}>
+                <div className="flex justify-center mt-10">
+                  <Image
+                    src={Render11} // Adjust the path to your image
+                    alt=""
+                    width={1000} // Set the width of the image
+                    height={1000} // Set the height of the image
+                    className="rounded-md" // Add any additional classes if necessary
+                  />
+                </div>
+              </div>
+              <div className="font-dosis text-xl text-wrap font-medium whitespace-pre-line max-w-fit">
+                This project consisted of redesigning the CSA LUV concept.<br/>
+                Over two weeks in the month of June, I analyzed, redesigned, modeled and rendered the vehicle in Unreal Engine.
               </div>
             </div>
 
