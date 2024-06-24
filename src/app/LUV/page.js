@@ -51,7 +51,7 @@ const LUVPage = () => {
               </div>
             </div>
 
-            <div className="inline-block w-full flex-shrink-0 flex-wrap mx-4">
+            <div className="inline-block w-full flex-shrink-0 flex-wrap">
               <div className={`flex justify-center transition-opacity duration-[1000ms]`}>
                 <div className="flex justify-center mt-10">
                   <Image
@@ -69,7 +69,7 @@ const LUVPage = () => {
               </div>
             </div>
 
-            <div className="inline-block w-full flex-shrink-0 flex-wrap mx-4">
+            <div className="inline-block w-full flex-shrink-0 flex-wrap">
               <div className={`flex justify-center transition-opacity duration-[1000ms]`}>
                 <div className="flex justify-center mt-10">
                   <Image
