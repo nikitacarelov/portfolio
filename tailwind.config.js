@@ -7,6 +7,10 @@ module.exports = {
   ],
   theme: {
     extend: {
+      translate: {
+        'sm-translate-y-40': '10rem',
+        'md-translate-y-20': '5rem',
+      },
       colors: {
         background: '#000000', // Set to black
         text: '#ffffff' // Ensure text is white

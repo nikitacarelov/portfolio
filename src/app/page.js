@@ -135,7 +135,7 @@ const HomeContent = () => {
         <Grid />
 
         <button
-          className={`fixed center mx-auto text-center transition-transform duration-1000 ease-in-out ${animate ? '-translate-y-20' : ''} 
+          className={`fixed center mx-auto text-center transition-transform duration-1000 ease-in-out ${animate ? '-translate-y-40 sm:-translate-y-20 md:-translate-y-20' : ''} 
             w-[350px] h-[100px] sm:w-[450px] sm:h-[140px] md:w-[550px] md:h-[150px]`}
           onClick={() => toggleState('down')}
           onMouseEnter={() => setIsHovered(true)}
@@ -147,7 +147,7 @@ const HomeContent = () => {
         </button>
 
         <div
-          className={`fixed center max-w-screen-lg mx-auto text-center transition-transform duration-1000 ease-in-out ${animate ? '-translate-y-20' : ''}`}
+          className={`fixed center max-w-screen-lg mx-auto text-center transition-transform duration-1000 ease-in-out ${animate ? '-translate-y-40 sm:-translate-y-20 md:-translate-y-20' : ''}`}
         >
           <div className="center-content gap-0 font-dosis">
             <h1 className={`drop-shadow-[0_1.5px_1.5px_rgba(0,0,0,1)]
