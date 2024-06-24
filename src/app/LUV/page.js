@@ -40,7 +40,7 @@ const LUVPage = () => {
                 |
               </h1>
               <div className='flex content-center'>
-                <div className='font-dosis inline-block content-center text-base md:text-base'>
+                <div className='font-dosis inline-block content-center text-xs sm:text-tiny md:text-base lg:text-lg'>
                   June 2024<br />
 
                   Tools Used: <br />
