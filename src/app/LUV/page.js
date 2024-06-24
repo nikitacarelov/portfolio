@@ -1,4 +1,4 @@
-'use client';
+'use client'
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
@@ -64,7 +64,7 @@ const LUVPage = () => {
                 </div>
               </div>
               <div className="font-dosis text-xl text-wrap font-medium whitespace-pre-line max-w-fit">
-                This project consisted of redesigning CSA's LUV concept.<br/>
+                This project consisted of redesigning the CSA LUV concept.<br/>
                 Over two weeks in the month of June, I analyzed, redesigned, modeled and rendered the vehicle in Unreal Engine.
               </div>
             </div>
