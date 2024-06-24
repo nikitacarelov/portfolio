@@ -167,7 +167,7 @@ const HomeContent = () => {
             </div>
             <div ref={aboutRef} className="inline-block w-full flex-shrink-0 flex-wrap ">
               <div className={`font-dosis flex justify-center ${currentState === 'about' ? 'opacity-100' : 'opacity-0'} transition-opacity duration-[1000ms] mx-4`}>
-                <p className="text-lg text-wrap font-medium whitespace-pre-line max-w-xs sm:max-w-sm md:max-w-md lg:max-w-4xl xl:max-w-5xl 2xl:max-w-6xl">
+                <p className="text-xlg text-wrap font-medium whitespace-pre-line max-w-xs sm:max-w-sm md:max-w-md lg:max-w-4xl xl:max-w-5xl 2xl:max-w-6xl">
                   I am a Mechanical Engineering student and AI enthusiast with a passion for 3D Art and Software Development.<br />
                 </p>
               </div>
@@ -203,7 +203,7 @@ const HomeContent = () => {
 
             <div ref={contactRef} className="inline-block w-full flex-shrink-0">
               <div className={`font-dosis flex justify-center ${currentState === 'contact' ? 'opacity-100' : 'opacity-0'} transition-opacity duration-[1000ms] mx-4`}>
-                <p className="text-lg text-wrap font-medium whitespace-pre-line max-w-xs sm:max-w-sm md:max-w-md lg:max-w-4xl xl:max-w-5xl 2xl:max-w-6xl">
+                <p className="text-xlg text-wrap font-medium whitespace-pre-line max-w-xs sm:max-w-sm md:max-w-md lg:max-w-4xl xl:max-w-5xl 2xl:max-w-6xl">
                   Feel free to reach out to me via email at nikitacarelov@gmail.com
                 </p>
               </div>
