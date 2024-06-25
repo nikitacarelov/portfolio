@@ -160,7 +160,7 @@ const LUVPage = () => {
                 Next Steps
               </h2>
               <div className="font-dosis text-xl text-wrap font-medium whitespace-pre-line max-w-fit mb-10">
-                -Full Unreal Engine blueprint implemnetation<br />
+                -Full Unreal Engine blueprint implementation<br />
                 -Control system and power system simulation within unreal engine<br />
                 -Fun simulator video game. <br />
               </div>
