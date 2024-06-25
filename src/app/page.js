@@ -177,7 +177,7 @@ text-xl sm:text-2xl md:text-2xl text-text font-thin italic transition-opacity du
               <div className={`mt-10 font-dosis flex justify-center ${currentState === 'about' ? 'opacity-100' : 'opacity-0'} transition-opacity duration-[1000ms] mx-4`}>
                 <p className="mt-10 text-xl text-wrap font-medium whitespace-pre-line max-w-xs sm:max-w-sm md:max-w-md lg:max-w-4xl xl:max-w-5xl 2xl:max-w-6xl">
                   Hello there!<br/> Welcome to my portfolio. <br/>
-                  I am a mechanical engineering student at McGill University with a deep passion for robotics, space and computer graphics. I've always been drawn to making cool things and this has led me to explore many different fields. <br/>
+                  I am a mechanical engineering student at McGill University with a deep passion for robotics, space and computer graphics. I have always been drawn to making cool things and this has led me to explore many different fields. <br/>
                   My expertise spans from mechanical design and prototyping to software development, allowing me to bring ideas to life from concept to completion.<br/>
                   Please feel free to explore a sample of my projects!
                   
