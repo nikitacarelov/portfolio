@@ -217,7 +217,7 @@ text-xl sm:text-2xl md:text-2xl text-text font-thin italic transition-opacity du
             <div ref={contactRef} className="w-full flex-shrink-0">
   <div className={` space-x-1 font-dosis flex justify-center ${currentState === 'contact' ? 'opacity-100' : 'opacity-0'} transition-opacity duration-[1000ms] mx-4`}>
     <p className=" text-xl text-wrap font-medium whitespace-pre-line text-center max-w-xs sm:max-w-sm md:max-w-md lg:max-w-4xl xl:max-w-5xl 2xl:max-w-6xl">
-      Reach out to me via email at <span className="tracking-wider underline decoration-1">nikitacarelov@gmail.com</span>
+      Reach out to me by email at <span className="tracking-wide font-bold decoration-1">nikitacarelov@gmail.com</span>
     </p>
   </div>
 </div>
