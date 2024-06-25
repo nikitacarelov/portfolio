@@ -6,7 +6,10 @@ import './luv.css';
 import Header from '../components/Header'; // Adjust the path as necessary
 import Image from 'next/image'
 import Render11 from './Render11.png'
-
+import Differential from './Differential.gif'
+import Scissors from './Scissors.gif'
+import Exploded from './ExplodedSus.png'
+2
 const LUVPage = () => {
   const [loading, setLoading] = useState(true);
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -22,7 +25,6 @@ const LUVPage = () => {
       router.push(url);
     }, 500); // Match this duration with the CSS transition duration
   };
-
 
   return (
     <div className="">
@@ -46,7 +48,7 @@ const LUVPage = () => {
                   Tools Used: <br />
                   Solidworks,
                   Unreal Engine 5,
-                  Datasmith Plugin
+                  Datasmith
                 </div>
               </div>
             </div>
@@ -56,7 +58,7 @@ const LUVPage = () => {
                 <div className="flex justify-center mt-10">
                   <Image
                     src={Render11} // Adjust the path to your image
-                    alt=""
+                    alt="Unreal Engine 5 render"
                     width={1000} // Set the width of the image
                     height={1000} // Set the height of the image
                     className="rounded-md" // Add any additional classes if necessary
@@ -64,26 +66,71 @@ const LUVPage = () => {
                 </div>
               </div>
               <div className="font-dosis text-xl text-wrap font-medium whitespace-pre-line max-w-fit">
-                This project consisted of redesigning the CSA LUV concept.<br/>
-                Over two weeks in the month of June, I analyzed, redesigned, modeled and rendered the vehicle in Unreal Engine.
+                This project consisted of redesigning the CSA LUV concept.<br />
+                Over two weeks, I reverse engineered, modeled in SolidWorks, and rendered the concept vehicle in Unreal Engine.<br />
+                Everything was modeled by me with inspiration from the <a href="https://www.asc-csa.gc.ca/eng/astronomy/moon-exploration/canadian-utility-rover-on-the-moon.asp" className="text-gray-400 underline">public images of the LUV</a>.
+              </div>
+
+            </div>
+
+            <h2 className="content-center text-center text-nowrap font-dosis text-3xl sm:text-4xl md:text-5xl font-thin text-text tracking-wide py-5">
+              Differential Suspension
+            </h2>
+            <div className="flex flex-col md:flex-row justify-center items-center transition-opacity duration-[1000ms] flex-wrap">
+              <div className="w-full md:w-1/2 flex justify-center p-4">
+                <Image
+                  src={Differential} // Adjust the path to your image
+                  alt=""
+                  layout="responsive"
+                  width={1000}
+                  height={1000}
+                  className="rounded-md object-contain w-full h-auto" // Ensure the image scales correctly
+                />
+              </div>
+              <div className="w-full md:w-1/2 flex justify-center items-center p-4">
+                <div className="font-dosis text-xl text-wrap font-medium whitespace-pre-line max-w-fit">
+                  The suspension design seemed to call for a differential, so I implemented a simple differential system hidden within the sheet metal frame of the vehicle.
+
+
+                </div>
               </div>
             </div>
 
-            <div className="inline-block w-full flex-shrink-0 flex-wrap">
-              <div className={`flex justify-center transition-opacity duration-[1000ms]`}>
-                <div className="flex justify-center mt-10">
-                  <Image
-                    src={Render11} // Adjust the path to your image
-                    alt=""
-                    width={1000} // Set the width of the image
-                    height={1000} // Set the height of the image
-                    className="rounded-md" // Add any additional classes if necessary
-                  />
+            <div className="flex flex-col md:flex-row justify-center items-center transition-opacity duration-[1000ms] flex-wrap">
+              <div className="w-full md:w-1/2 flex justify-center items-center p-4">
+                <div className="font-dosis text-xl text-wrap font-medium whitespace-pre-line max-w-fit">
+                  Such a design of course has a bearing exposed to the outside. To prevent lunar dust from penetrating the enclosure, a mechanical seal needs to be added in this assembly.
                 </div>
               </div>
-              <div className="font-dosis text-xl text-wrap font-medium whitespace-pre-line max-w-fit">
-                This project consisted of redesigning the CSA LUV concept.<br/>
-                Over two weeks in the month of June, I analyzed, redesigned, modeled and rendered the vehicle in Unreal Engine.
+              <div className="w-full md:w-1/2 flex justify-center p-4">
+                <Image
+                  src={Exploded} // Adjust the path to your image
+                  alt=""
+                  layout="responsive"
+                  width={1000}
+                  height={1000}
+                  className="rounded-md object-contain w-full h-auto" // Ensure the image scales correctly
+                />
+              </div>
+            </div>
+            <h2 className="content-center text-center text-nowrap font-dosis text-3xl sm:text-4xl md:text-5xl font-thin text-text tracking-wide">
+              Scissor Lift
+            </h2>
+            <div className="flex flex-col md:flex-row justify-center items-center transition-opacity duration-[1000ms] flex-wrap">
+              <div className="w-full md:w-1/2 flex justify-center p-4">
+                <Image
+                  src={Scissors} // Adjust the path to your image
+                  alt=""
+                  layout="responsive"
+                  width={1000}
+                  height={1000}
+                  className="rounded-md object-contain w-full h-auto" // Ensure the image scales correctly
+                />
+              </div>
+              <div className="w-full md:w-1/2 flex justify-center items-center p-4">
+                <div className="font-dosis text-xl text-wrap font-medium whitespace-pre-line max-w-fit">
+                  The scissor lift design includes two main lead screw actuators connected to the first link and two gripper actuators. In this design, all the actuators are located outside of the enclosure, so adequate dustproofing isrequired for these components.
+                </div>
               </div>
             </div>
           </div>
