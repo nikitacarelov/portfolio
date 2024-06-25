@@ -2,10 +2,10 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import './3dart.css';
+import './ai.css';
 import Header from '../components/Header'; // Adjust the path as necessary
 
-const ArtPage = () => {
+const AiPage = () => {
   const [loading, setLoading] = useState(true);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const router = useRouter();
@@ -39,4 +39,5 @@ const ArtPage = () => {
   );
 };
 
-export default ArtPage;
+
+export default AiPage;

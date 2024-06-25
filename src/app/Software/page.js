@@ -29,7 +29,9 @@ const SoftwarePage = () => {
         }
         {!loading && (
           <>
-            {/* Add the rest of your page content here */}
+            <div className='font-dosis text-5xl h-screen flex items-center justify-center'>
+              Coming Soon
+              </div>
           </>
         )}
       </div>
