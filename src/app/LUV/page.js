@@ -9,6 +9,7 @@ import Render11 from './Render11.png'
 import Differential from './Differential.gif'
 import Scissors from './Scissors.gif'
 import Exploded from './ExplodedSus.png'
+import UnderTheHood from './UnderTheHood.png'
 2
 const LUVPage = () => {
   const [loading, setLoading] = useState(true);
@@ -89,7 +90,8 @@ const LUVPage = () => {
               </div>
               <div className="w-full md:w-1/2 flex justify-center items-center p-4">
                 <div className="font-dosis text-xl text-wrap font-medium whitespace-pre-line max-w-fit">
-                  The suspension design seemed to call for a differential, so I implemented a simple differential system hidden within the sheet metal frame of the vehicle.
+                  The suspension for this vehicle requires a differential, so I implemented a simple differential system hidden within the sheet metal frame of the vehicle.
+                  Besides having few parts, this system requires no springs and can be more reliable and robust than a rocker bogie or a wishbone system.
 
 
                 </div>
@@ -99,7 +101,7 @@ const LUVPage = () => {
             <div className="flex flex-col md:flex-row justify-center items-center transition-opacity duration-[1000ms] flex-wrap">
               <div className="w-full md:w-1/2 flex justify-center items-center p-4">
                 <div className="font-dosis text-xl text-wrap font-medium whitespace-pre-line max-w-fit">
-                  Such a design of course has a bearing exposed to the outside. To prevent lunar dust from penetrating the enclosure, a mechanical seal needs to be added in this assembly.
+                  A sealed bearing and adequate gasketing/sealant must be applied at the flange intersections to prevent dust from entering the assembly.
                 </div>
               </div>
               <div className="w-full md:w-1/2 flex justify-center p-4">
@@ -133,6 +135,37 @@ const LUVPage = () => {
                 </div>
               </div>
             </div>
+            
+            <h2 className="content-center text-center text-nowrap font-dosis text-3xl sm:text-4xl md:text-5xl font-thin text-text tracking-wide py-5">
+              Enclosure
+            </h2>
+            
+            <div className="inline-block w-full flex-shrink-0 flex-wrap">
+              <div className={`flex justify-center transition-opacity duration-[1000ms]`}>
+                <div className="flex justify-center">
+                  <Image
+                    src={UnderTheHood} // Adjust the path to your image
+                    alt="Unreal Engine 5 render"
+                    width={1000} // Set the width of the image
+                    height={1000} // Set the height of the image
+                    className="rounded-md" // Add any additional classes if necessary
+                  />
+                </div>
+              </div>
+              <div className="font-dosis text-xl text-wrap font-medium whitespace-pre-line max-w-fit">
+                Like the suspension legs, the enclosure is made of sheet metal plates riveted together with corner brackets. Rivets are preferred to welding and bolting for crack resistance and long term reliability under temperature gradients.
+              </div>
+
+              <h2 className="content-center text-center text-nowrap font-dosis text-3xl sm:text-4xl md:text-5xl font-thin text-text tracking-wide py-5">
+              Next Steps
+            </h2>
+            <div className="font-dosis text-xl text-wrap font-medium whitespace-pre-line max-w-fit">
+              To come: full Unreal Engine blueprint implemnetation, control system and power system simulation within unreal engine.
+              Fun simulator video game.
+                            </div>
+
+            </div>
+
           </div>
         )}
       </div>
