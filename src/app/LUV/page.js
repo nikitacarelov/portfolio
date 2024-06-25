@@ -74,7 +74,7 @@ const LUVPage = () => {
 
             </div>
 
-            <h2 className="content-center text-center text-nowrap font-dosis text-3xl sm:text-4xl md:text-5xl font-thin text-text tracking-wide py-5">
+            <h2 className="mt-10 content-center text-center text-nowrap font-dosis text-3xl sm:text-4xl md:text-5xl font-thin text-text tracking-wide py-5">
               Differential Suspension
             </h2>
             <div className="flex flex-col md:flex-row justify-center items-center transition-opacity duration-[1000ms] flex-wrap">
@@ -115,7 +115,7 @@ const LUVPage = () => {
                 />
               </div>
             </div>
-            <h2 className="content-center text-center text-nowrap font-dosis text-3xl sm:text-4xl md:text-5xl font-thin text-text tracking-wide">
+            <h2 className="mt-10 content-center text-center text-nowrap font-dosis text-3xl sm:text-4xl md:text-5xl font-thin text-text tracking-wide">
               Scissor Lift
             </h2>
             <div className="flex flex-col md:flex-row justify-center items-center transition-opacity duration-[1000ms] flex-wrap">
@@ -131,15 +131,15 @@ const LUVPage = () => {
               </div>
               <div className="w-full md:w-1/2 flex justify-center items-center p-4">
                 <div className="font-dosis text-xl text-wrap font-medium whitespace-pre-line max-w-fit">
-                  The scissor lift design includes two main lead screw actuators connected to the first link and two gripper actuators. In this design, all the actuators are located outside of the enclosure, so adequate dustproofing isrequired for these components.
+                  The scissor lift design includes two main lead screw actuators connected to the first link and two gripper actuators. In this design, all the actuators are located outside of the enclosure, so adequate dustproofing is required for these components.
                 </div>
               </div>
             </div>
-            
-            <h2 className="content-center text-center text-nowrap font-dosis text-3xl sm:text-4xl md:text-5xl font-thin text-text tracking-wide py-5">
+
+            <h2 className="mt-10 content-center text-center text-nowrap font-dosis text-3xl sm:text-4xl md:text-5xl font-thin text-text tracking-wide py-5">
               Enclosure
             </h2>
-            
+
             <div className="inline-block w-full flex-shrink-0 flex-wrap">
               <div className={`flex justify-center transition-opacity duration-[1000ms]`}>
                 <div className="flex justify-center">
@@ -157,12 +157,13 @@ const LUVPage = () => {
               </div>
 
               <h2 className="content-center text-center text-nowrap font-dosis text-3xl sm:text-4xl md:text-5xl font-thin text-text tracking-wide py-5">
-              Next Steps
-            </h2>
-            <div className="font-dosis text-xl text-wrap font-medium whitespace-pre-line max-w-fit mb-10">
-              To come: full Unreal Engine blueprint implemnetation, control system and power system simulation within unreal engine.
-              Fun simulator video game. <br/>
-                            </div>
+                Next Steps
+              </h2>
+              <div className="font-dosis text-xl text-wrap font-medium whitespace-pre-line max-w-fit mb-10">
+                -Full Unreal Engine blueprint implemnetation<br />
+                -Control system and power system simulation within unreal engine<br />
+                -Fun simulator video game. <br />
+              </div>
 
             </div>
 

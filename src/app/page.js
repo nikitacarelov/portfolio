@@ -159,7 +159,7 @@ ${animate && isHovered ? 'opacity-10' : ''}`}>
               Nikita Carelov
             </h1>
 
-            <p className={`drop-shadow-[0_1.5px_1.5px_rgba(0,0,0,1)]
+            <p className={`mb-10 drop-shadow-[0_1.5px_1.5px_rgba(0,0,0,1)]
 text-xl sm:text-2xl md:text-2xl text-text font-thin italic transition-opacity duration-[1500ms] ${animate ? 'opacity-5' : 'opacity-50'}`}>
               Future Mechanical Eng | 3D Artist | Developer
             </p>
@@ -174,15 +174,19 @@ text-xl sm:text-2xl md:text-2xl text-text font-thin italic transition-opacity du
               {/* Home content */}
             </div>
             <div ref={aboutRef} className="inline-block w-full flex-shrink-0 flex-wrap ">
-              <div className={`font-dosis flex justify-center ${currentState === 'about' ? 'opacity-100' : 'opacity-0'} transition-opacity duration-[1000ms] mx-4`}>
-                <p className="text-xl text-wrap font-medium whitespace-pre-line max-w-xs sm:max-w-sm md:max-w-md lg:max-w-4xl xl:max-w-5xl 2xl:max-w-6xl">
-                  I am a Mechanical Engineering student and AI enthusiast with a passion for 3D Art and Software Development.<br />
+              <div className={`mt-10 font-dosis flex justify-center ${currentState === 'about' ? 'opacity-100' : 'opacity-0'} transition-opacity duration-[1000ms] mx-4`}>
+                <p className="mt-10 text-xl text-wrap font-medium whitespace-pre-line max-w-xs sm:max-w-sm md:max-w-md lg:max-w-4xl xl:max-w-5xl 2xl:max-w-6xl">
+                  Hello there!<br/> Welcome to my portfolio. <br/>
+                  I am a mechanical engineering student at McGill University with a deep passion for robotics, space and computer graphics. I've always been drawn to making cool things and this has led me to explore many different fields. <br/>
+                  My expertise spans from mechanical design and prototyping to software development, allowing me to bring ideas to life from concept to completion.<br/>
+                  Please feel free to explore a sample of my projects!
+                  
                 </p>
               </div>
             </div>
-            <div ref={portfolioRef} className="inline-block w-full flex-shrink-0">
+            <div ref={portfolioRef} className="mt-10 inline-block w-full flex-shrink-0">
 
-              <div ref={portfolioRef} className="inline-block w-full flex-shrink-0">
+              <div ref={portfolioRef} className="mt-10 inline-block w-full flex-shrink-0">
                 <div className={`font-dosis grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 justify-center ${currentState === 'portfolio' ? 'opacity-100' : 'opacity-0'} transition-opacity duration-[1000ms] mx-auto max-w-screen-md`}>
                   <button
                     className="text-white hover:text-gray-600 font-bold py-4 px-8 text-xl tracking-wide transition-colors duration-300"
@@ -210,16 +214,16 @@ text-xl sm:text-2xl md:text-2xl text-text font-thin italic transition-opacity du
                   </button>
                 </div>
               </div>
-
             </div>
+            
+            <div ref={contactRef} className="mt-5 w-full flex-shrink-0">
+  <div className={`mt-10 space-x-1 font-dosis flex justify-center ${currentState === 'contact' ? 'opacity-100' : 'opacity-0'} transition-opacity duration-[1000ms] mx-4`}>
+    <p className="mt-10 text-xl text-wrap font-medium whitespace-pre-line text-center max-w-xs sm:max-w-sm md:max-w-md lg:max-w-4xl xl:max-w-5xl 2xl:max-w-6xl">
+      Reach out to me via email at <span className="tracking-wider underline decoration-1">nikitacarelov@gmail.com</span>
+    </p>
+  </div>
+</div>
 
-            <div ref={contactRef} className="inline-block w-full flex-shrink-0">
-              <div className={`space-x-1 font-dosis flex justify-center ${currentState === 'contact' ? 'opacity-100' : 'opacity-0'} transition-opacity duration-[1000ms] mx-4`}>
-                <p className="text-xl text-wrap font-medium whitespace-pre-line max-w-xs sm:max-w-sm md:max-w-md lg:max-w-4xl xl:max-w-5xl 2xl:max-w-6xl">
-                  Feel free to reach out to me via email at <span className="tracking-wider underline decoration-1">nikitacarelov@gmail.com</span>
-                </p>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -236,3 +240,4 @@ export default function Home() {
     </main>
   );
 }
+
