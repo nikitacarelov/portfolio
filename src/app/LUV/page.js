@@ -159,9 +159,9 @@ const LUVPage = () => {
               <h2 className="content-center text-center text-nowrap font-dosis text-3xl sm:text-4xl md:text-5xl font-thin text-text tracking-wide py-5">
               Next Steps
             </h2>
-            <div className="font-dosis text-xl text-wrap font-medium whitespace-pre-line max-w-fit">
+            <div className="font-dosis text-xl text-wrap font-medium whitespace-pre-line max-w-fit mb-10">
               To come: full Unreal Engine blueprint implemnetation, control system and power system simulation within unreal engine.
-              Fun simulator video game.
+              Fun simulator video game. <br/>
                             </div>
 
             </div>
