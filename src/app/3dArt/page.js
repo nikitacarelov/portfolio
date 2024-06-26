@@ -7,6 +7,7 @@ import Header from '../components/Header'; // Adjust the path as necessary
 import FoggyMorning from './FoggyMorning.gif'
 import LightPost from './LightPostTest.gif'
 import Image from 'next/image'
+import Knight from './Knight.gif'
 
 const ArtPage = () => {
   const [loading, setLoading] = useState(true);
@@ -76,7 +77,7 @@ const ArtPage = () => {
                 </div>
               </div>
               <div className="font-dosis text-xl text-wrap font-medium whitespace-pre-line max-w-fit">
-                When I first started learning to use Blender, I had some fun with light animation. I tried made a cartoony shader in the shader graph and played around with emissivity. The models are all simple shapes with various noise map modifiers.
+                When I first started learning to use Blender, I had some fun with light animation. I made a cartoony shader in the shader graph and played around with emissivity. The models are all simple shapes with various noise map modifiers.
               </div>
 
             </div>
@@ -118,7 +119,42 @@ const ArtPage = () => {
               </div>
 
             </div>
+            <div className="inline-block w-full flex-shrink-0 flex-wrap mt-10">
+              <div class="flex gap-2 ">
+              <h1 className={`content-center  text-nowrap font-dosis text-3xl sm:text-5xl md:text-6xl font-thin text-text tracking-wide transition-all duration-[300ms] ease-in-out`}>
+                  3. Knight Model              </h1>
+                  <h1 className={`text-center font-dosis text-5xl sm:text-6xl md:text-8xl font-thin text-text tracking-wide transition-all duration-[300ms] ease-in-out`}>
+                  |
+                </h1>
+                <div className='flex content-center'>
+                  <div className='font-dosis inline-block content-center text-tiny sm:text-xl md:text-2xl lg:text-2xl'>
+                    Tools Used: <br />
+                    Blender 3D
+                  </div>
+                </div>
+                <h1 className={`text-center font-dosis text-5xl sm:text-6xl md:text-8xl font-thin text-text tracking-wide transition-all duration-[300ms] ease-in-out`}>
+                  |
+                </h1>
+                <div className='font-dosis inline-block content-center text-tiny sm:text-xl md:text-2xl lg:text-2xl'>
+                  Winter 2023
+                </div>
+              </div>
 
+              <div className={`flex justify-center transition-opacity duration-[1000ms]`}>
+                <div className="flex justify-center">
+                <Image
+                    src={Knight} // Adjust the path to your image
+                    alt="Blender Render"
+                    width={1000} // Set the width of the image
+                    height={1000} // Set the height of the image
+                    className="rounded-md" // Add any additional classes if necessary
+                  />
+                </div>
+              </div>
+              <div className="font-dosis text-xl text-wrap font-medium whitespace-pre-line max-w-fit pb-10">
+                My first attempt at modeling clothes. Similar shading is used as with the light post, but I modeled and rigged a humanoid with emissive circles at the eyes. 
+              </div>
+            </div>
 
 
           </>
