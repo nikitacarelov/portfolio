@@ -72,6 +72,7 @@ const ArtPage = () => {
                     width={1000} // Set the width of the image
                     height={1000} // Set the height of the image
                     className="rounded-md" // Add any additional classes if necessary
+                    unoptimized
                   />
 
                 </div>
@@ -111,6 +112,7 @@ const ArtPage = () => {
                     width={1000} // Set the width of the image
                     height={1000} // Set the height of the image
                     className="rounded-md" // Add any additional classes if necessary
+                    unoptimized
                   />
                 </div>
               </div>
@@ -148,6 +150,7 @@ const ArtPage = () => {
                     width={1000} // Set the width of the image
                     height={1000} // Set the height of the image
                     className="rounded-md" // Add any additional classes if necessary
+                    unoptimized
                   />
                 </div>
               </div>

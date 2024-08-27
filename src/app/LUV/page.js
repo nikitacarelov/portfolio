@@ -86,6 +86,7 @@ const LUVPage = () => {
                   width={1000}
                   height={1000}
                   className="rounded-md object-contain w-full h-auto" // Ensure the image scales correctly
+                  unoptimized
                 />
               </div>
               <div className="w-full md:w-1/2 flex justify-center items-center p-4">
@@ -127,6 +128,7 @@ const LUVPage = () => {
                   width={1000}
                   height={1000}
                   className="rounded-md object-contain w-full h-auto" // Ensure the image scales correctly
+                  unoptimized
                 />
               </div>
               <div className="w-full md:w-1/2 flex justify-center items-center p-4">

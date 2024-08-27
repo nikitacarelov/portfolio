@@ -194,15 +194,15 @@ text-xl sm:text-2xl md:text-2xl text-text font-thin italic transition-opacity du
                   </button>
                   <button
                     className="text-white hover:text-gray-600 font-bold py-4 px-8 text-xl tracking-wide transition-colors duration-300"
-                    onClick={() => handleNavigation('/Software')}
+                    onClick={() => handleNavigation('/Humanoid')}
                   >
-                    Software (in dev)
+                    Humanoid (in dev)
                   </button>
                   <button
                     className="text-white hover:text-gray-600 font-bold py-4 px-8 text-xl tracking-wide transition-colors duration-300"
                     onClick={() => handleNavigation('/3dArt')}
                   >
-                    3D Art (in dev)
+                    3D Art
                   </button>
                   <button
                     className="text-white hover:text-gray-600 font-bold py-4 px-8 text-xl tracking-wide transition-colors duration-300"

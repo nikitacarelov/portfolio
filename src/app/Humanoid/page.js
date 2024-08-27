@@ -2,10 +2,13 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import './software.css';
+import './humanoid.css';
 import Header from '../components/Header'; // Adjust the path as necessary
+import Image from 'next/image'
+import Humanoid from './Humanoid.png'
 
-const SoftwarePage = () => {
+
+const HumanoidPage = () => {
   const [loading, setLoading] = useState(true);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const router = useRouter();
@@ -29,9 +32,21 @@ const SoftwarePage = () => {
         }
         {!loading && (
           <>
-            <div className='font-dosis text-5xl h-screen flex items-center justify-center'>
-              Coming Soon
+            <div className={`flex justify-center transition-opacity duration-[1000ms] gap-2 pt-10 py-10 mt-20`}>
+              <div className="flex justify-center">
+                <Image
+                  src={Humanoid} // Adjust the path to your image
+                  alt="tmp image"
+                  width={400} // Set the width of the image
+                  height={400} // Set the height of the image
+                  className="rounded-md" // Add any additional classes if necessary
+                />
               </div>
+            </div>
+            <div className='font-dosis text-5xl h-screen flex justify-center'>
+              Coming Soon
+            </div>
+            
           </>
         )}
       </div>
@@ -39,5 +54,4 @@ const SoftwarePage = () => {
   );
 };
 
-
-export default SoftwarePage;
+export default HumanoidPage;
