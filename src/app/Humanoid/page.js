@@ -6,6 +6,10 @@ import './humanoid.css';
 import Header from '../components/Header'; // Adjust the path as necessary
 import Image from 'next/image'
 import Humanoid from './Humanoid.png'
+import Printed_Model from './Printed_Model.jpeg'
+import Motor_controller_PCB_bottom from './Motor_controller_PCB_bottom.jpeg'
+import Motor_controller_PCB_top from './Motor_controller_PCB_top.jpeg'
+
 
 
 const HumanoidPage = () => {
@@ -31,23 +35,90 @@ const HumanoidPage = () => {
         {loading
         }
         {!loading && (
-          <>
-            <div className={`flex justify-center transition-opacity duration-[1000ms] gap-2 pt-10 py-10 mt-20`}>
-              <div className="flex justify-center">
-                <Image
-                  src={Humanoid} // Adjust the path to your image
-                  alt="tmp image"
-                  width={400} // Set the width of the image
-                  height={400} // Set the height of the image
-                  className="rounded-md" // Add any additional classes if necessary
-                />
+        <>
+          {/* Title block */}
+          <div className="flex justify-center gap-2 pt-10 py-10">
+            <h1 className="text-center font-dosis text-5xl sm:text-7xl md:text-8xl font-thin text-text tracking-wide">
+              Small Humanoid V1
+            </h1>
+            <h1 className="text-center font-dosis text-8xl font-thin text-text tracking-wide">
+              |
+            </h1>
+            <div className="flex content-center">
+              <div className="font-dosis inline-block content-center text-xs sm:text-tiny md:text-base lg:text-lg">
+                2024 — Ongoing<br />
+                Tools Used:<br />
+                SolidWorks, 3D Printing <br />
+                CNC Machining, EasyEDA, Python
               </div>
             </div>
-            <div className='font-dosis text-5xl h-screen flex justify-center'>
-              Coming Soon
-            </div>
-            
-          </>
+          </div>
+
+          {/* Hero render */}
+          <div className="flex flex-col items-center gap-3 pt-6">
+            <Image
+              src={Humanoid}
+              alt="Humanoid CAD render"
+              width={450}
+              height={450}
+              className="rounded-md"
+            />
+            <p className="font-dosis text-sm text-center max-w-md">
+              Early CAD concept of a compact humanoid robot focused on human-like proportions
+              and joint placement for future dynamic locomotion experiments.
+            </p>
+          </div>
+
+          {/* Printed prototype */}
+          <div className="flex flex-col items-center gap-3 pt-16">
+            <Image
+              src={Printed_Model}
+              alt="3D printed humanoid prototype"
+              width={450}
+              height={450}
+              className="rounded-md"
+            />
+            <p className="font-dosis text-sm text-center max-w-md">
+              First physical prototype produced with FDM 3D printing to validate geometry,
+              assembly tolerances, and actuator packaging constraints.
+            </p>
+          </div>
+
+          {/* Motor controller PCB top */}
+          <div className="flex flex-col items-center gap-3 pt-16">
+            <Image
+              src={Motor_controller_PCB_top}
+              alt="Motor controller PCB top view"
+              width={450}
+              height={450}
+              className="rounded-md"
+            />
+            <p className="font-dosis text-sm text-center max-w-md">
+              Custom motor controller PCB designed to drive multiple small actuators with
+              closed-loop feedback for future limb control.
+            </p>
+          </div>
+
+          {/* Motor controller PCB bottom */}
+          <div className="flex flex-col items-center gap-3 pt-16">
+            <Image
+              src={Motor_controller_PCB_bottom}
+              alt="Motor controller PCB bottom view"
+              width={450}
+              height={450}
+              className="rounded-md"
+            />
+            <p className="font-dosis text-sm text-center max-w-md">
+              Bottom layer routing showing power distribution and signal breakout for
+              compact integration inside the torso assembly.
+            </p>
+          </div>
+
+          {/* Coming soon */}
+          <div className="font-dosis text-5xl h-screen flex justify-center items-center pt-20">
+            Detailed write-up coming soon
+          </div>
+        </>
         )}
       </div>
     </div>

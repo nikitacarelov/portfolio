@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+.main-container {
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden;
+    z-index: 2;
+}
+  
+.background-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgb(133, 88, 88);
+    z-index: -1;
+}
+  
+.header {
+    position: relative;
+    z-index: 2;
+}
