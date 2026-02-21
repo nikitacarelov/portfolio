@@ -228,38 +228,40 @@ const HomeContent = () => {
         <Grid />
 
           <button
-            className={`fixed center mx-auto text-center transition-transform duration-1000 ease-in-out -translate-y-8 ${animate ? '-translate-y-48 sm:-translate-y-38 md:-translate-y-28' : ''} 
-              w-[350px] h-[100px] sm:w-[450px] sm:h-[140px] md:w-[550px] md:h-[150px]`}
+            className={`fixed center mx-auto text-center transition-transform duration-1000 ease-in-out z-10
+              -translate-y-8
+              ${animate ? '-translate-y-38 sm:-translate-y-34 md:-translate-y-30' : ''}
+              bg-transparent border-none p-0 m-0 cursor-pointer`}
             onClick={() => toggleState('down')}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
-            style={{ cursor: 'pointer', background: 'transparent', border: 'none', zIndex: '10' }}
+            style={{ WebkitTapHighlightColor: 'transparent' }}
           >
+            <div className="center-content gap-0 font-dosis text-nowrap">
+              <h1
+                className={`drop-shadow-[0_1.5px_1.5px_rgba(0,0,0,1)]
+                  text-5xl sm:text-7xl md:text-8xl font-thin text-text tracking-wide
+                  transition-opacity duration-[300ms] ease-in-out
+                  leading-none m-0 p-0 inline-block
+                  ${!animate && isHovered ? 'opacity-50' : ''}
+                  ${animate && !isHovered ? 'opacity-20' : ''}
+                  ${animate && isHovered ? 'opacity-10' : ''}`}
+              >
+                Nikita Carelov
+              </h1>
+
+              <p
+                className={`mb-10 drop-shadow-[0_1.5px_1.5px_rgba(0,0,0,1)]
+                  text-xl sm:text-2xl md:text-2xl text-text font-thin italic
+                  transition-opacity duration-[1500ms]
+                  ${animate ? 'opacity-5' : 'opacity-50'}`}
+              >
+                Future Mechanical Eng | 3D Artist | Developer
+              </p>
+            </div>
           </button>
-
-          <div
-            className={`fixed center max-w-screen-lg mx-auto text-center transition-transform duration-1000 ease-in-out ${animate ? '-translate-y-40 sm:-translate-y-30 md:-translate-y-20' : ''}`}
-          >
-          <div className="center-content gap-0 font-dosis text-nowrap">
-            <h1 className={`drop-shadow-[0_1.5px_1.5px_rgba(0,0,0,1)]
-                            text-5xl sm:text-7xl md:text-8xl font-thin text-text tracking-wide 
-                            transition-opacity duration-[300ms] ease-in-out 
-                            leading-none m-0 p-0 inline-block ${!animate && isHovered ? 'opacity-50' : ''} 
-                            ${animate && !isHovered ? 'opacity-20' : ''} 
-                            ${animate && isHovered ? 'opacity-10' : ''}`}>
-              Nikita Carelov
-            </h1>
-
-            <p className={`mb-10 drop-shadow-[0_1.5px_1.5px_rgba(0,0,0,1)]
-text-xl sm:text-2xl md:text-2xl text-text font-thin italic transition-opacity duration-[1500ms] ${animate ? 'opacity-5' : 'opacity-50'}`}>
-              Future Mechanical Eng | 3D Artist | Developer
-            </p>
-
-            
-          </div>
-        </div>
 
         {/* Always Render Scrollable Row */}
         <div className={`drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,1)]

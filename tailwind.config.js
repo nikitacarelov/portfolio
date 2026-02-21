@@ -8,8 +8,23 @@ module.exports = {
   theme: {
     extend: {
       translate: {
-        'sm-translate-y-40': '10rem',
-        'md-translate-y-20': '5rem',
+        50: '12.5rem',
+        48: '12rem',
+        46: '11.5rem',
+        44: '11rem',
+        42: '10.5rem',
+        40: '10rem',
+        38: '9.5rem',
+        36: '9rem',
+        34: '8.5rem',
+        32: '8rem',
+        30: '7.5rem',
+        28: '7rem',
+        26: '6.5rem',
+        24: '6rem',
+        22: '5.5rem',
+        20: '5rem',
+        18: '4.5rem',
       },
       colors: {
         background: '#000000', // Set to black
