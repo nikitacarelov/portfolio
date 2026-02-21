@@ -230,7 +230,7 @@ const HomeContent = () => {
           <button
             className={`fixed center mx-auto text-center transition-transform duration-1000 ease-in-out z-10
               -translate-y-8
-              ${animate ? '-translate-y-40 sm:-translate-y-34 md:-translate-y-30' : ''}
+              ${animate ? '-translate-y-[10.5rem] sm:-translate-y-[9rem] md:-translate-y-[8rem]' : ''}
               bg-transparent border-none p-0 m-0 cursor-pointer`}
             onClick={() => toggleState('down')}
             onMouseEnter={() => setIsHovered(true)}
