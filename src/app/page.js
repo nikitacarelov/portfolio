@@ -22,6 +22,7 @@ const HomeContent = () => {
   const homeRef = useRef(null);
   const contactRef = useRef(null);
   const touchStartRef = useRef({ x: 0, y: 0 });
+  
 
   useEffect(() => {
     const state = searchParams.get('state');
@@ -40,6 +41,55 @@ const HomeContent = () => {
     }, 100);
   }, []);
 
+  useEffect(() => {
+  const onTouchStart = (e) => {
+    const t = e.touches[0];
+    touchStartRef.current = { x: t.clientX, y: t.clientY };
+  };
+
+  const onTouchEnd = (e) => {
+    const start = touchStartRef.current;
+    const t = e.changedTouches[0];
+
+    const dx = t.clientX - start.x;
+    const dy = t.clientY - start.y;
+
+    const adx = Math.abs(dx);
+    const ady = Math.abs(dy);
+
+    const SWIPE_MIN = 45;   // px threshold
+    const DOMINANCE = 1.2;  // must be 20% more dominant than the other axis
+
+    // throttle like wheel
+    const now = Date.now();
+    if (now - lastScrollTime < 500) return;
+
+    // Vertical swipe -> state change
+    if (ady > SWIPE_MIN && ady > adx * DOMINANCE) {
+      setLastScrollTime(now);
+      if (dy < 0) toggleState('down'); // swipe up
+      else toggleState('up');          // swipe down
+      return;
+    }
+
+    // Horizontal swipe -> state change
+    if (adx > SWIPE_MIN && adx > ady * DOMINANCE) {
+      setLastScrollTime(now);
+      if (dx < 0) toggleState('down'); // swipe left
+      else toggleState('up');          // swipe right
+    }
+  };
+
+  window.addEventListener('touchstart', onTouchStart, { passive: true });
+  window.addEventListener('touchend', onTouchEnd, { passive: true });
+
+  return () => {
+    window.removeEventListener('touchstart', onTouchStart);
+    window.removeEventListener('touchend', onTouchEnd);
+  };
+}, [lastScrollTime, currentState]);
+
+
   const scrollToSection = (ref) => {
     const container = scrollContainerRef.current;
     const section = ref.current;
@@ -54,7 +104,6 @@ const HomeContent = () => {
     }
   };
 
-  
   useEffect(() => {
   const onTouchStart = (e) => {
     const t = e.touches[0];
