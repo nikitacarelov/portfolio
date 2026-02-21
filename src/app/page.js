@@ -21,6 +21,7 @@ const HomeContent = () => {
   const aboutRef = useRef(null);
   const homeRef = useRef(null);
   const contactRef = useRef(null);
+  const touchStartRef = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
     const state = searchParams.get('state');
@@ -52,6 +53,49 @@ const HomeContent = () => {
       });
     }
   };
+
+  
+  useEffect(() => {
+  const onTouchStart = (e) => {
+    const t = e.touches[0];
+    touchStartRef.current = { x: t.clientX, y: t.clientY };
+  };
+
+  const onTouchEnd = (e) => {
+    const start = touchStartRef.current;
+    const t = e.changedTouches[0];
+
+    const dx = t.clientX - start.x;
+    const dy = t.clientY - start.y;
+
+    const adx = Math.abs(dx);
+    const ady = Math.abs(dy);
+
+    const SWIPE_MIN = 45;      // px threshold
+    const DOMINANCE = 1.2;     // must be meaningfully more vertical than horizontal
+
+    // throttle like wheel
+    const now = Date.now();
+    if (now - lastScrollTime < 500) return;
+
+    // Only vertical swipe changes state (matches your wheel behavior)
+    if (ady > SWIPE_MIN && ady > adx * DOMINANCE) {
+      setLastScrollTime(now);
+
+      // swipe up -> go "down" through your states
+      if (dy < 0) toggleState('down');
+      else toggleState('up');
+    }
+  };
+
+  window.addEventListener('touchstart', onTouchStart, { passive: true });
+  window.addEventListener('touchend', onTouchEnd, { passive: true });
+
+  return () => {
+    window.removeEventListener('touchstart', onTouchStart);
+    window.removeEventListener('touchend', onTouchEnd);
+  };
+}, [lastScrollTime, currentState]);
 
 
   useEffect(() => {
@@ -134,28 +178,28 @@ const HomeContent = () => {
       <div className={`content-container ${isTransitioning ? 'fade-out' : ''} ${isLoaded ? 'fade-in' : 'fade-out'} flex flex-col items-center justify-center`}>
         <Grid />
 
-        <button
-          className={`fixed center mx-auto text-center transition-transform duration-1000 ease-in-out ${animate ? '-translate-y-40 sm:-translate-y-30 md:-translate-y-20' : ''} 
-            w-[350px] h-[100px] sm:w-[450px] sm:h-[140px] md:w-[550px] md:h-[150px]`}
-          onClick={() => toggleState('down')}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleTouchEnd}
-          style={{ cursor: 'pointer', background: 'transparent', border: 'none', zIndex: '1000' }}
-        >
-        </button>
+          <button
+            className={`fixed center mx-auto text-center transition-transform duration-1000 ease-in-out -translate-y-8 ${animate ? '-translate-y-48 sm:-translate-y-38 md:-translate-y-28' : ''} 
+              w-[350px] h-[100px] sm:w-[450px] sm:h-[140px] md:w-[550px] md:h-[150px]`}
+            onClick={() => toggleState('down')}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+            style={{ cursor: 'pointer', background: 'transparent', border: 'none', zIndex: '10' }}
+          >
+          </button>
 
-        <div
-          className={`fixed center max-w-screen-lg mx-auto text-center transition-transform duration-1000 ease-in-out ${animate ? '-translate-y-40 sm:-translate-y-30 md:-translate-y-20' : ''}`}
-        >
-          <div className="center-content gap-0 font-dosis">
+          <div
+            className={`fixed center max-w-screen-lg mx-auto text-center transition-transform duration-1000 ease-in-out ${animate ? '-translate-y-40 sm:-translate-y-30 md:-translate-y-20' : ''}`}
+          >
+          <div className="center-content gap-0 font-dosis text-nowrap">
             <h1 className={`drop-shadow-[0_1.5px_1.5px_rgba(0,0,0,1)]
-text-5xl sm:text-7xl md:text-8xl font-thin text-text tracking-wide 
-transition-opacity duration-[300ms] ease-in-out 
-leading-none m-0 p-0 inline-block ${!animate && isHovered ? 'opacity-50' : ''} 
-${animate && !isHovered ? 'opacity-20' : ''} 
-${animate && isHovered ? 'opacity-10' : ''}`}>
+                            text-5xl sm:text-7xl md:text-8xl font-thin text-text tracking-wide 
+                            transition-opacity duration-[300ms] ease-in-out 
+                            leading-none m-0 p-0 inline-block ${!animate && isHovered ? 'opacity-50' : ''} 
+                            ${animate && !isHovered ? 'opacity-20' : ''} 
+                            ${animate && isHovered ? 'opacity-10' : ''}`}>
               Nikita Carelov
             </h1>
 
@@ -163,6 +207,8 @@ ${animate && isHovered ? 'opacity-10' : ''}`}>
 text-xl sm:text-2xl md:text-2xl text-text font-thin italic transition-opacity duration-[1500ms] ${animate ? 'opacity-5' : 'opacity-50'}`}>
               Future Mechanical Eng | 3D Artist | Developer
             </p>
+
+            
           </div>
         </div>
 
@@ -187,25 +233,25 @@ text-xl sm:text-2xl md:text-2xl text-text font-thin italic transition-opacity du
               <div ref={portfolioRef} className=" inline-block w-full flex-shrink-0">
                 <div className={`font-dosis grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 justify-center ${currentState === 'portfolio' ? 'opacity-100' : 'opacity-0'} transition-opacity duration-[1000ms] mx-auto max-w-screen-md`}>
                   <button
-                    className="text-white hover:text-gray-600 font-bold py-4 px-8 text-xl tracking-wide transition-colors duration-300"
+                    className="text-white hover:text-gray-600 font-bold py-4 px-8 text-xl tracking-wide transition-colors duration-300 relative z-50"
                     onClick={() => handleNavigation('/LUV')}
                   >
                     LUV Redesign
                   </button>
                                     <button
-                    className="text-white hover:text-gray-600 font-bold py-4 px-8 text-xl tracking-wide transition-colors duration-300"
+                    className="text-white hover:text-gray-600 font-bold py-4 px-8 text-xl tracking-wide transition-colors duration-300 relative z-50"
                     onClick={() => handleNavigation('/e-drum')}
                   >
                     E-Drum
                   </button>
                   <button
-                    className="text-white hover:text-gray-600 font-bold py-4 px-8 text-xl tracking-wide transition-colors duration-300"
+                    className="text-white hover:text-gray-600 font-bold py-4 px-8 text-xl tracking-wide transition-colors duration-300 relative z-50"
                     onClick={() => handleNavigation('/Humanoid')}
                   >
                     Humanoid
                   </button>
                   <button
-                    className="text-white hover:text-gray-600 font-bold py-4 px-8 text-xl tracking-wide transition-colors duration-300"
+                    className="text-white hover:text-gray-600 font-bold py-4 px-8 text-xl tracking-wide transition-colors duration-300 relative z-50"
                     onClick={() => handleNavigation('/3dArt')}
                   >
                     3D Art

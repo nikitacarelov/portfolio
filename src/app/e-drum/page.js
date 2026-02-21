@@ -38,15 +38,14 @@ const EDrumPage = () => {
 							<h1 className="content-center text-center text-nowrap font-dosis text-5xl sm:text-7xl md:text-8xl font-thin text-text tracking-wide transition-all duration-[300ms] ease-in-out">
 								E-Drum
 							</h1>
-							<h1 className="text-center font-dosis text-8xl font-thin text-text tracking-wide transition-all duration-[300ms] ease-in-out">
+              <h1 className={`text-center font-dosis text-5xl sm:text-7xl md:text-8xl font-thin text-text tracking-wide transition-all duration-[300ms] ease-in-out`}>
 								|
 							</h1>
 							<div className="flex content-center">
-								<div className="font-dosis inline-block content-center text-xs sm:text-tiny md:text-base lg:text-lg">
+                <div className='font-dosis inline-block content-center text-xs sm:text-tiny md:text-base lg:text-lg'>
 									2025 — Ongoing<br />
 									Tools Used:<br />
-									Solidworks, 3D Printing,<br />
-                  Python, PyTorch, librosa, NumPy, Optuna
+                  SOLIDWORKS, 3D Printing, Python, PyTorch, librosa, NumPy, Optuna
 								</div>
 							</div>
 						</div>
