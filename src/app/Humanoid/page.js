@@ -38,8 +38,8 @@ const HumanoidPage = () => {
         <>
           {/* Title block */}
           <div className="flex justify-center gap-2 pt-10 py-10">
-              <h1 className={`content-center text-nowrap text-center font-dosis text-5xl sm:text-6xl md:text-7xl font-thin text-text tracking-wide transition-all duration-[300ms] ease-in-out`}>
-              Small Humanoid
+              <h1 className={`content-center text-center text-nowrap font-dosis text-5xl sm:text-7xl md:text-8xl font-thin text-text tracking-wide transition-all duration-[300ms] ease-in-out`}>
+              Humanoid
             </h1>
               <h1 className={`text-center font-dosis text-8xl font-thin text-text tracking-wide transition-all duration-[300ms] ease-in-out`}>
               |
@@ -47,7 +47,8 @@ const HumanoidPage = () => {
             <div className="flex content-center">
                 <div className='font-dosis inline-block content-center text-xs sm:text-tiny md:text-base lg:text-lg'>
                 2024 — Ongoing<br />
-                Tools Used: EasyEDA, Python <br />
+                Tools Used: <br />
+                EasyEDA, Python <br />
                 SolidWorks, 3D Printing, Milling
               </div>
             </div>
