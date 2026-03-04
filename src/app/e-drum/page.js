@@ -78,7 +78,7 @@ const EDrumPage = () => {
 								Vision
 							</h2>
 							<div className="font-dosis text-xl text-wrap font-medium whitespace-pre-line max-w-fit mx-auto">
-								Traditional electronic drums trigger pre-recorded samples — every hit sounds identical regardless of how it is played. This project replaces that playback model with a generative one: a physical cymbal pad whose strikes are encoded into a compact latent space and decoded into realistic audio on the fly via the Web Audio API. The result is a drum instrument that responds expressively to nuance in every hit.
+								Traditional electronic drums trigger pre-recorded samples — every hit sounds identical regardless of how it is played. This project replaces that playback model with a generative one: a physical cymbal pad whose strikes are encoded into a compact latent space and decoded into realistic audio on the fly through a generative model. The result is a drum instrument that will respond expressively to nuance in every hit.
 							</div>
 
 							{/* Closeup + Demo */}
