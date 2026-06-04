@@ -274,8 +274,7 @@ const HomeContent = () => {
               <div className={` font-dosis flex justify-center ${currentState === 'about' ? 'opacity-100' : 'opacity-0'} transition-opacity duration-[1000ms] mx-4`}>
                 <p className="mt-5 text-xl text-wrap font-medium whitespace-pre-line max-w-xs sm:max-w-sm md:max-w-md lg:max-w-4xl xl:max-w-5xl 2xl:max-w-6xl">
                   Hello there, welcome to my portfolio! <br/>
-                  I am a mechanical engineering graduate from McGill University with a deep passion for robotics, space and computer graphics. Please feel free to explore a sample of my projects!
-                  
+                  I am a mechanical engineering graduate from McGill University with a deep passion for robotics, space and computer graphics. Feel free to explore a sample of my projects!
                 </p>
               </div>
             </div>
