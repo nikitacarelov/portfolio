@@ -258,7 +258,7 @@ const HomeContent = () => {
                   transition-opacity duration-[1500ms]
                   ${animate ? 'opacity-5' : 'opacity-50'}`}
               >
-                Future Mech Eng | 3D Artist | Developer
+                Mech Eng | 3D Art | Dev
               </p>
             </div>
           </button>
